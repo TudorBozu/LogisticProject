@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* small, safe globals */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+}
+
