@@ -29,16 +29,13 @@ export function Navbar({ links }: { links: NavItem[] }) {
                 <div className="flex h-16 items-center justify-between">
 
                     {/* Left: Logo + Nav inline */}
-                    <div className="flex items-center gap-10">
+                    <div className="flex items-center gap-12">
                         <a href="#top" className="flex items-center gap-2.5">
-                            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 text-white text-sm font-bold">
-                                R
-                            </span>
-                            <span className="text-sm font-semibold tracking-tight text-white">
+                            <span className="text-2xl font-semibold tracking-tight text-white">
                                 RoutaX
                             </span>
                         </a>
-
+                        
                         <nav className="hidden md:flex items-center gap-10">
                             {links.map(function (l) {
                                 return (

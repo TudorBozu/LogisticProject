@@ -31,3 +31,64 @@ body {
 }
 
 
+@layer utilities {
+    .hex-pattern::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.06;
+        --s: 105px;
+        --c1: #1a2a6e;
+        --c2: #2a3a8e;
+        --c3: #0d0d14;
+        background: conic-gradient(
+                from 75deg,
+                var(--c1) 15deg,
+                var(--c2) 0 30deg,
+                #0000 0 180deg,
+                var(--c2) 0 195deg,
+                var(--c1) 0 210deg,
+                #0000 0
+        )
+        calc(0.5 * var(--s)) calc(0.5 * var(--s) / 0.577),
+        conic-gradient(
+                var(--c1) 30deg,
+                var(--c3) 0 75deg,
+                var(--c1) 0 90deg,
+                var(--c2) 0 105deg,
+                var(--c3) 0 150deg,
+                var(--c2) 0 180deg,
+                var(--c3) 0 210deg,
+                var(--c1) 0 256deg,
+                var(--c2) 0 270deg,
+                var(--c1) 0 286deg,
+                var(--c2) 0 331deg,
+                var(--c3) 0
+        );
+        background-size: var(--s) calc(var(--s) / 0.577);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.animate-zoom-in {
+    animation: zoomIn 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.animation-delay-200 { animation-delay: 0.2s; }
+.animation-delay-300 { animation-delay: 0.3s; }
+.animation-delay-400 { animation-delay: 0.4s; }
+.animation-delay-500 { animation-delay: 0.5s; }

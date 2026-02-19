@@ -101,6 +101,6 @@ export const cta = {
 };
 
 export const footer = {
-    brand: "LogisticProject",
+    brand: "RoutaX",
     note: "Your logistics management platform (React + TS + Tailwind).",
 };

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Container } from "../components/ui/Container";
 import { SectionHeading } from "../components/SectionHeading";
+import { useInView} from "../hooks/useInView.tsx";
 
 // Add screenshot imports here when ready, e.g.:
 // import dashboardImg from "../assets/screenshots/dashboard.jpg";
@@ -23,7 +24,8 @@ export function Why({
 }) {
     const [active, setActive] = useState(0);
     const [autoplay, setAutoplay] = useState(true);
-
+    const { ref: laptopRef, inView: laptopInView } = useInView(0.5, "-100px");
+    
     function pauseAndResume() {
         setAutoplay(false);
         setTimeout(function () { setAutoplay(true); }, 6000);
@@ -48,7 +50,12 @@ export function Why({
     }, [autoplay]);
 
     return (
-        <section id={id} className="bg-[#0d0d14] min-h-screen">
+        <section id={id} className="bg-[#0d0d14] min-h-screen relative hex-pattern">
+            {/* Bottom gradient to blend into Why section */}
+            <div
+                className="absolute inset-x-0 bottom-0 h-48"
+                style={{ background: "linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
+            />
             <Container>
                 <div className="pt-8 pb-16 sm:pt-12 sm:pb-24 flex flex-col justify-center min-h-screen">
                     <SectionHeading title={title} />
@@ -74,8 +81,14 @@ export function Why({
                         </div>
 
                         {/* Right — laptop mockup */}
-                        <div className="relative mx-auto w-full max-w-3xl px-10 lg:max-w-none lg:px-0">
-
+                        <div
+                            ref={laptopRef}
+                            className="relative mx-auto w-full max-w-2xl px-10 lg:max-w-none lg:px-0"
+                            style={{
+                                opacity: laptopInView ? 1 : 0,
+                                transform: laptopInView ? "translateY(0)" : "translateY(24px)",
+                                transition: "opacity 0.8s cubic-bezier(0.23,1,0.32,1), transform 0.8s cubic-bezier(0.23,1,0.32,1)",
+                            }}>
                             {/* Screen */}
                             <div
                                 className="relative overflow-hidden rounded-t-3xl bg-zinc-950 p-3"
@@ -179,6 +192,7 @@ export function Why({
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </Container>
         </section>

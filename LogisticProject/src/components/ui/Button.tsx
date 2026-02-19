@@ -7,13 +7,10 @@ type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
     variant?: Variant;
 };
 
-const styles: Record<Variant, string> = {
-    primary:
-        "bg-black text-white hover:bg-neutral-800 focus-visible:outline-neutral-400",
-    secondary:
-        "bg-white text-black border border-neutral-200 hover:bg-neutral-50 focus-visible:outline-neutral-300",
-    ghost:
-        "text-black hover:bg-neutral-100 focus-visible:outline-neutral-300",
+const variants: Record<Variant, string> = {
+    primary: "border-white/30 text-white hover:bg-white hover:text-blue-700 hover:border-white",
+    secondary: "border-white/20 text-white/80 hover:bg-white/10 hover:text-white hover:border-white/40",
+    ghost: "border-transparent text-white/70 hover:bg-white/5 hover:text-white",
 };
 
 export function Button({ variant = "primary", className = "", ...props }: Props) {
@@ -21,11 +18,35 @@ export function Button({ variant = "primary", className = "", ...props }: Props)
         <a
             {...props}
             className={[
-                "inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium",
-                "transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
-                styles[variant],
+                // Base styles converted from CSS
+                "appearance-none",
+                "bg-transparent",
+                "border-2",
+                "rounded-[1em]",
+                "box-border",
+                "cursor-pointer",
+                "inline-flex items-center justify-center",
+                "text-base",
+                "font-semibold",
+                "leading-normal",
+                "m-0",
+                "min-h-[3.75em]",
+                "outline-none",
+                "px-[2.3em] py-[1em]",
+                "text-center",
+                "no-underline",
+                "select-none",
+                "will-change-transform",
+                // Hover & active
+                "hover:shadow-[rgba(0,0,0,0.25)_0_8px_15px]",
+                "hover:-translate-y-0.5",
+                "active:shadow-none",
+                "active:translate-y-0",
+                // Variant specific
+                variants[variant],
                 className,
             ].join(" ")}
+            style={{ transition: "all 300ms cubic-bezier(0.23, 1, 0.32, 1)" }}
         />
     );
 }

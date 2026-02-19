@@ -12,9 +12,19 @@ export function Features({
     items: { title: string; text: string }[];
 }) {
     return (
-        <section id={id} className="bg-[#0d0d14]">
+        <section id={id} className="bg-[#0d0d14] relative hex-pattern">
+            {/* Top gradient */}
+            <div
+                className="absolute inset-x-0 top-0 h-48 z-0"
+                style={{ background: "linear-gradient(to bottom, rgba(13,13,20,0.85) 0%, transparent 100%)" }}
+            />
+            {/* Bottom gradient */}
+            <div
+                className="absolute inset-x-0 bottom-0 h-48 z-0"
+                style={{ background: "linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
+            />
             <Container>
-                <div className="py-16 sm:py-20">
+                <div className="relative z-10 py-16 sm:py-20">
                     <SectionHeading title={title} />
                     <div className="mt-8 grid gap-4 sm:grid-cols-2">
                         {items.map(function (f) {

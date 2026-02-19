@@ -127,12 +127,7 @@ export function Footer({
 
                 {/* Bottom bar */}
                 <div className="py-8 flex flex-col items-center gap-4">
-                    <div className="flex items-center gap-2.5">
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 text-white text-sm font-bold">
-                            R
-                        </span>
-                        <span className="text-lg font-semibold text-white">{brand}</span>
-                    </div>
+                    <span className="text-2xl font-semibold text-white">{brand}</span>
                     <div className="w-24 border-t border-white/10" />
                     <p className="text-xs text-white/30 text-center max-w-sm">{note}</p>
                     <p className="text-xs text-white/20">
