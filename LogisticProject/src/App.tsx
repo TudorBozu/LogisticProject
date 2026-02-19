@@ -1,5 +1,4 @@
 // src/App.tsx
-//import React from "react";
 import "./App.css";
 
 import { nav, hero, why, values, features, faq, cta, footer } from "./data/landing";
@@ -15,7 +14,7 @@ import { CTA } from "./sections/CTA";
 
 export default function App() {
     return (
-        <div id="top" className="min-h-screen bg-white text-black">
+        <div id="top" className="min-h-screen bg-[#0d0d14] text-white">
             <Navbar links={nav} />
 
             <main>

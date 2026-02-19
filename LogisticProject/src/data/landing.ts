@@ -13,7 +13,7 @@ export const hero = {
     subtitle:
         "A robust platform for managing logistics operations, tracking shipments, and optimizing workflows in real-time. Built with React + TypeScript + Tailwind, ready to deploy with minimal customization.",
     primaryCta: { label: "Get started", href: "#cta" },
-    secondaryCta: { label: "See values", href: "#values" },
+    secondaryCta: { label: "Learn more", href: "#values" },
 };
 
 export const why = {

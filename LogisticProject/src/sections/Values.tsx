@@ -13,17 +13,17 @@ export function Values({
     items: { title: string; text: string }[];
 }) {
     return (
-        <section id={id} className="bg-neutral-50">
+        <section id={id} style={{ background: "linear-gradient(135deg, #111827 0%, #0d0d14 100%)" }}>
             <Container>
                 <div className="py-16 sm:py-20">
                     <SectionHeading
                         title={title}
-                        subtitle="A simple “principles” section you can keep or replace."
+                        subtitle="The principles that guide everything we build."
                     />
                     <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                        {items.map((x) => (
-                            <Card key={x.title} title={x.title} text={x.text} />
-                        ))}
+                        {items.map(function (x) {
+                            return <Card key={x.title} title={x.title} text={x.text} />;
+                        })}
                     </div>
                 </div>
             </Container>
