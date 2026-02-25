@@ -11,7 +11,7 @@ export const hero = {
     kicker: "Efficient, reliable & real-time",
     title: "Streamline your logistics with a seamless project management platform.",
     subtitle:
-        "A robust platform for managing logistics operations, tracking shipments, and optimizing workflows in real-time. Built with React + TypeScript + Tailwind, ready to deploy with minimal customization.",
+        "A robust platform for managing logistics operations, tracking shipments, and optimizing workflows in real-time.",
     primaryCta: { label: "Get started", href: "#cta" },
     secondaryCta: { label: "Learn more", href: "#values" },
 };

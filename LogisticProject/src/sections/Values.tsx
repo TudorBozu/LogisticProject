@@ -13,7 +13,7 @@ export function Values({
     items: { title: string; text: string }[];
 }) {
     return (
-        <section id={id} style={{ background: "linear-gradient(135deg, #111827 0%, #0d0d14 100%)" }}>
+        <section id={id} className="bg-slate-50 dark:bg-[#111827] transition-colors duration-300">
             <Container>
                 <div className="py-16 sm:py-20">
                     <SectionHeading

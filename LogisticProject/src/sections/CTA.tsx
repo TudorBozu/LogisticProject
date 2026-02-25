@@ -3,7 +3,6 @@ import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { useInView } from "../hooks/useInView";
 
-// Add your PNG import here when ready:
 import ctaBg from "../assets/cta-bg.jpg";
 
 export function CTA({
@@ -21,16 +20,16 @@ export function CTA({
 }) {
     const { ref: ctaRef, inView: ctaInView } = useInView(0.3, "");
     return (
-        <section id={id} className="bg-[#0d0d14] relative hex-pattern">
+        <section id={id} className="bg-white dark:bg-[#0d0d14] relative hex-pattern transition-colors duration-300">
             {/* Top gradient */}
             <div
                 className="absolute inset-x-0 top-0 h-48 z-0"
-                style={{ background: "linear-gradient(to bottom, rgba(13,13,20,0.85) 0%, transparent 100%)" }}
+                style={{ background: "dark:linear-gradient(to bottom, rgba(13,13,20,0.85) 0%, transparent 100%)" }}
             />
             {/* Bottom gradient */}
             <div
                 className="absolute inset-x-0 bottom-0 h-48 z-0"
-                style={{ background: "linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
+                style={{ background: "dark:linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
             />
             <Container>
                 <div className="relative z-10 py-16 sm:py-20">
@@ -50,10 +49,8 @@ export function CTA({
                             className="absolute inset-0 w-full h-full object-cover object-center opacity-20 mix-blend-luminosity"
                         />
 
-                        {/* Dark vignette over image edges */}
                         <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 via-transparent to-blue-950/40 pointer-events-none" />
 
-                        {/* Content */}
                         <div className="relative">
                             <h3 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
                                 {title}

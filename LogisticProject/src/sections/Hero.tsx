@@ -31,12 +31,12 @@ export function Hero({
                 {/* Top gradient to blend seamlessly with navbar */}
                 <div
                     className="absolute inset-x-0 top-0 h-48"
-                    style={{ background: "linear-gradient(to bottom, rgba(13,13,20,0.85) 0%, transparent 100%)" }}
+                    style={{ background: "dark:linear-gradient(to bottom, rgba(13,13,20,0.85) 0%, transparent 100%)" }}
                 />
                 {/* Bottom gradient to blend into Why section */}
                 <div
                     className="absolute inset-x-0 bottom-0 h-48 z-0"
-                    style={{ background: "linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
+                    style={{ background: "dark:linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
                 />
             </div>
 

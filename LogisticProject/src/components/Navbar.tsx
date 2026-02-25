@@ -2,11 +2,13 @@
 import { useState } from "react";
 import { Container } from "./ui/Container";
 import type { NavItem } from "../data/landing";
+import { useTheme } from "../context/ThemeContext";
 
 export function Navbar({ links }: { links: NavItem[] }) {
     const [lang, setLang] = useState<"EN" | "RO">("EN");
     const [langAnim, setLangAnim] = useState(false);
     const [themeAnim, setThemeAnim] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     function toggleLang() {
         setLangAnim(true);
@@ -17,13 +19,13 @@ export function Navbar({ links }: { links: NavItem[] }) {
     function handleThemeClick() {
         setThemeAnim(true);
         setTimeout(function () { setThemeAnim(false); }, 300);
-        // Theme switching will be wired up later
+        toggleTheme();
     }
 
     return (
         <header
             className="sticky top-0 z-50 w-full"
-            style={{ background: "linear-gradient(to right, rgba(26,31,110,0.85) 0%, rgba(13,13,20,0.95) 100%)", backdropFilter: "blur(12px)" }}
+            style={{ background: "linear-gradient(to right, rgba(26,31,110,0.5) 0%, rgba(13,13,20,0.8) 100%)", backdropFilter: "blur(12px)" }}
         >
             <Container>
                 <div className="flex h-16 items-center justify-between">
@@ -35,7 +37,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                                 RoutaX
                             </span>
                         </a>
-                        
+
                         <nav className="hidden md:flex items-center gap-10">
                             {links.map(function (l) {
                                 return (
@@ -67,7 +69,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                             {lang}
                         </button>
 
-                        {/* Theme toggle — animates on click, not functional yet */}
+                        {/* Theme toggle */}
                         <button
                             onClick={handleThemeClick}
                             className="text-blue-200 hover:text-white focus:outline-none"
@@ -77,19 +79,16 @@ export function Navbar({ links }: { links: NavItem[] }) {
                                 transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1), color 0.2s"
                             }}
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-4 w-4"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <circle cx="12" cy="12" r="4" />
-                                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-                            </svg>
+                            {theme === "dark" ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="12" cy="12" r="4" />
+                                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                                </svg>
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                                </svg>
+                            )}
                         </button>
 
                         {/* Sign in */}

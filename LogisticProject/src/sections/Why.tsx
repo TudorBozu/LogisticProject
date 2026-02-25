@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Container } from "../components/ui/Container";
 import { SectionHeading } from "../components/SectionHeading";
-import { useInView} from "../hooks/useInView.tsx";
+import { useInView } from "../hooks/useInView.tsx";
 
 // Add screenshot imports here when ready, e.g.:
 // import dashboardImg from "../assets/screenshots/dashboard.jpg";
@@ -25,7 +25,7 @@ export function Why({
     const [active, setActive] = useState(0);
     const [autoplay, setAutoplay] = useState(true);
     const { ref: laptopRef, inView: laptopInView } = useInView(0.5, "-100px");
-    
+
     function pauseAndResume() {
         setAutoplay(false);
         setTimeout(function () { setAutoplay(true); }, 6000);
@@ -50,11 +50,11 @@ export function Why({
     }, [autoplay]);
 
     return (
-        <section id={id} className="bg-[#0d0d14] min-h-screen relative hex-pattern">
-            {/* Bottom gradient to blend into Why section */}
+        <section id={id} className="bg-white dark:bg-[#0d0d14] min-h-screen relative hex-pattern transition-colors duration-300">
+            {/* Bottom gradient */}
             <div
                 className="absolute inset-x-0 bottom-0 h-48"
-                style={{ background: "linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
+                style={{ background: "dark:linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
             />
             <Container>
                 <div className="pt-8 pb-16 sm:pt-12 sm:pb-24 flex flex-col justify-center min-h-screen">
@@ -68,12 +68,12 @@ export function Why({
                             {bullets.map(function (b, i) {
                                 return (
                                     <div key={b.title} className="flex gap-5 items-start">
-                                        <span className="flex-shrink-0 inline-flex h-9 w-9 lg:h-12 lg:w-12 items-center justify-center rounded-full border border-blue-500/40 bg-blue-500/10 text-sm lg:text-base font-bold text-blue-300">
+                                        <span className="flex-shrink-0 inline-flex h-9 w-9 lg:h-12 lg:w-12 items-center justify-center rounded-full border border-blue-500/40 bg-blue-500/10 text-sm lg:text-base font-bold text-blue-600 dark:text-blue-300">
                                             {i + 1}
                                         </span>
                                         <div>
-                                            <div className="text-base lg:text-xl font-semibold text-white">{b.title}</div>
-                                            <p className="mt-1 text-sm lg:text-base leading-6 text-blue-200">{b.text}</p>
+                                            <div className="text-base lg:text-xl font-semibold text-[#0d0d14] dark:text-white">{b.title}</div>
+                                            <p className="mt-1 text-sm lg:text-base leading-6 text-blue-700 dark:text-blue-200">{b.text}</p>
                                         </div>
                                     </div>
                                 );
@@ -192,7 +192,6 @@ export function Why({
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </Container>
         </section>

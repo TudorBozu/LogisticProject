@@ -19,7 +19,7 @@ export function FAQ({
     }
 
     return (
-        <section id={id} style={{ background: "linear-gradient(135deg, #111827 0%, #0d0d14 100%)" }}>
+        <section id={id} className="bg-slate-50 dark:bg-[#111827] transition-colors duration-300">
             <Container>
                 <div className="py-16 sm:py-20">
                     <SectionHeading title={title} />
@@ -29,18 +29,17 @@ export function FAQ({
                             return (
                                 <div
                                     key={x.q}
-                                    className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden backdrop-blur-sm"
+                                    className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden backdrop-blur-sm transition-colors duration-300"
                                 >
-                                    {/* Question row */}
                                     <button
                                         onClick={function () { toggle(i); }}
                                         className="w-full flex items-center justify-between px-5 py-4 text-left focus:outline-none"
                                     >
-                                        <span className="text-sm font-semibold text-white pr-4">
+                                        <span className="text-sm font-semibold text-[#0d0d14] dark:text-white pr-4">
                                             {x.q}
                                         </span>
                                         <span
-                                            className="flex-shrink-0 text-blue-300 text-lg leading-none"
+                                            className="flex-shrink-0 text-blue-500 dark:text-blue-300 text-lg leading-none"
                                             style={{
                                                 transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
                                                 transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
@@ -51,7 +50,6 @@ export function FAQ({
                                         </span>
                                     </button>
 
-                                    {/* Answer — animated height */}
                                     <div
                                         style={{
                                             maxHeight: isOpen ? "400px" : "0px",
@@ -60,7 +58,7 @@ export function FAQ({
                                             overflow: "hidden",
                                         }}
                                     >
-                                        <p className="px-5 pb-5 text-sm leading-6 text-blue-200">
+                                        <p className="px-5 pb-5 text-sm leading-6 text-blue-700 dark:text-blue-200">
                                             {x.a}
                                         </p>
                                     </div>
