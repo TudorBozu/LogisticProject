@@ -1,35 +1,46 @@
 // src/App.tsx
 import "./App.css";
 
-import { nav, hero, why, values, features, faq, cta, footer } from "./data/landing";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
-import { Navbar } from "./components/Navbar";
-import { Footer } from "./components/Footer";
 
-import { Hero } from "./sections/Hero";
-import { Why } from "./sections/Why";
-import { Values } from "./sections/Values";
-import { Features } from "./sections/Features";
-import { FAQ } from "./sections/FAQ";
-import { CTA } from "./sections/CTA";
+import LandingPage from "./pages/LandingPage";
+
+import AuthNavbar from "./components/auth/Navbar";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
+import DashboardPage from "./pages/DashboardPage";
 
 export default function App() {
     return (
         <ThemeProvider>
-            <div id="top" className="min-h-screen bg-white dark:bg-[#0d0d14] text-[#0d0d14] dark:text-white transition-colors duration-300">
-                <Navbar links={nav} />
+            <Routes>
+                <Route path="/" element={<LandingPage />} />
 
-                <main>
-                    <Hero {...hero} />
-                    <Why id="why" title={why.title} bullets={why.bullets} />
-                    <Values id="values" title={values.title} items={values.items} />
-                    <Features id="features" title={features.title} items={features.items} />
-                    <FAQ id="faq" title={faq.title} items={faq.items} />
-                    <CTA id="cta" {...cta} />
-                </main>
+                <Route
+                    path="/sign-in"
+                    element={
+                        <>
+                            <AuthNavbar />
+                            <SignInPage />
+                        </>
+                    }
+                />
 
-                <Footer brand={footer.brand} note={footer.note} />
-            </div>
+                <Route
+                    path="/sign-up"
+                    element={
+                        <>
+                            <AuthNavbar />
+                            <SignUpPage />
+                        </>
+                    }
+                />
+
+                <Route path="/dashboard" element={<DashboardPage />} />
+
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
         </ThemeProvider>
     );
 }

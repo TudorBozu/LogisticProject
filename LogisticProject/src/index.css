@@ -4,32 +4,58 @@
 @tailwind components;
 @tailwind utilities;
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
+@layer base {
+    *, *::before, *::after { box-sizing: border-box; }
 
-html {
-    scroll-behavior: smooth;
-    width: 100%;
-}
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        width: 100%;
+    }
 
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
 
-#root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
+        /* păstrează fontul tău */
+        font-family: 'Plus Jakarta Sans', sans-serif;
+
+        /* păstrează tema existentă din proiect (light/dark) */
+        @apply bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100;
+
+        transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Root layout */
+    #root {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    /* Remove blue highlight on mobile tap */
+    button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 @layer utilities {
+    /* delays (ambele stiluri, ca să nu-ți pice nimic) */
+    .delay-100 { animation-delay: 80ms; }
+    .delay-200 { animation-delay: 160ms; }
+    .delay-300 { animation-delay: 240ms; }
+
+    .animation-delay-200 { animation-delay: 0.2s; }
+    .animation-delay-300 { animation-delay: 0.3s; }
+    .animation-delay-400 { animation-delay: 0.4s; }
+    .animation-delay-500 { animation-delay: 0.5s; }
+
+    .theme-transition {
+        transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Hex pattern */
     .hex-pattern::before {
         content: '';
         position: absolute;
@@ -66,27 +92,42 @@ body {
         );
         background-size: var(--s) calc(var(--s) / 0.577);
     }
+
+    /* animation helpers */
+    .animate-fade-in {
+        animation: fadeIn 1.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+    .animate-zoom-in {
+        animation: zoomIn 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+    .animate-fade-up {
+        animation: fadeUp 0.45s cubic-bezier(.16,1,.3,1) both;
+    }
 }
 
+/* Floating card animations */
+@keyframes floatA {
+    0%, 100% { transform: translateY(0px); }
+    50%      { transform: translateY(-7px); }
+}
+@keyframes floatB {
+    0%, 100% { transform: translateY(0px); }
+    50%      { transform: translateY(6px); }
+}
+
+/* Fade up entrance */
+@keyframes fadeUp {
+    0%   { opacity: 0; transform: translateY(18px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade/Zoom (din codul tău) */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes zoomIn {
     from { opacity: 0; transform: scale(0.92); }
-    to { opacity: 1; transform: scale(1); }
+    to   { opacity: 1; transform: scale(1); }
 }
-
-.animate-fade-in {
-    animation: fadeIn 1.3s cubic-bezier(0.23, 1, 0.32, 1) both;
-}
-
-.animate-zoom-in {
-    animation: zoomIn 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
-}
-
-.animation-delay-200 { animation-delay: 0.2s; }
-.animation-delay-300 { animation-delay: 0.3s; }
-.animation-delay-400 { animation-delay: 0.4s; }
-.animation-delay-500 { animation-delay: 0.5s; }
