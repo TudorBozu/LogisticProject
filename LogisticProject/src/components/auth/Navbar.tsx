@@ -1,9 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
 import { PATHS } from '../../router/paths'
 import { clearAuthNav } from '../../router/Guard'
+import { useLang } from '../../context/LangContext'
 
 export default function Navbar() {
     const { pathname } = useLocation()
+    const { lang } = useLang()
 
     return (
         <nav className="
@@ -42,7 +44,7 @@ export default function Navbar() {
                         : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
                 }`}
             >
-                Sign In
+                {lang === 'RO' ? 'Autentificare' : 'Sign In'}
             </Link>
             <Link
                 to={PATHS.public.signUp}
@@ -52,7 +54,7 @@ export default function Navbar() {
                         : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
                 }`}
             >
-                Sign Up
+                {lang === 'RO' ? 'Înregistrare' : 'Sign Up'}
             </Link>
 
             {/* Spacer */}
