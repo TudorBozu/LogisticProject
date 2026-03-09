@@ -1,19 +1,23 @@
-﻿// src/components/Navbar.tsx
+// src/components/Navbar.tsx
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { PATHS } from "../router/paths";
+import { allowAuthNav } from "../router/Guard";
 import { Container } from "./ui/Container";
 import type { NavItem } from "../data/landing";
 import { useTheme } from "../context/ThemeContext";
+import { useLang } from "../context/LangContext";
 
 export function Navbar({ links }: { links: NavItem[] }) {
-    const [lang, setLang] = useState<"EN" | "RO">("EN");
     const [langAnim, setLangAnim] = useState(false);
     const [themeAnim, setThemeAnim] = useState(false);
     const { theme, toggleTheme } = useTheme();
+    const { lang, toggleLang } = useLang();
 
-    function toggleLang() {
+    function handleLangClick() {
         setLangAnim(true);
         setTimeout(function () { setLangAnim(false); }, 300);
-        setLang(function (prev) { return prev === "EN" ? "RO" : "EN"; });
+        toggleLang();
     }
 
     function handleThemeClick() {
@@ -58,7 +62,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
 
                         {/* Language toggle */}
                         <button
-                            onClick={toggleLang}
+                            onClick={handleLangClick}
                             className="text-sm font-medium text-blue-200 hover:text-white focus:outline-none"
                             aria-label="Toggle language"
                             style={{
@@ -92,12 +96,13 @@ export function Navbar({ links }: { links: NavItem[] }) {
                         </button>
 
                         {/* Sign in */}
-                        <a
-                            href="#signin"
+                        <Link
+                            to={PATHS.public.signIn}
+                            onClick={allowAuthNav}
                             className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 transition-colors"
                         >
-                            Sign in
-                        </a>
+                            {lang === 'RO' ? 'Autentificare' : 'Sign in'}
+                        </Link>
                     </div>
                 </div>
             </Container>

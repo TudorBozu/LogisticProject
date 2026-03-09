@@ -4,13 +4,8 @@ import AuthLayout from '../components/auth/AuthLayout'
 import FormInput from '../components/auth/FormInput'
 import { useAuthForm, FieldError } from '../hooks/useAuthForm'
 import type { SignUpValues } from '../types/auth'
-
-const PANEL_STATS = [
-  { value: '14 zile', label: 'Perioadă de încercare gratuită, fără card de credit', icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg> },
-  { value: '500+', label: 'Companii integrate în acest an', icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg> },
-  { value: '4.9 / 5', label: 'Satisfacția medie a clienților', icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/></svg> },
-]
-const PANEL_QUOTE = { text: 'Am redus costurile cu combustibilul cu 28% în primul trimestru. Randamentul investiției a fost imediat și incontestabil.', name: 'Marina Ionescu', role: 'Director general, TransAuto Moldova', initials: 'MI' }
+import { useLang } from '../context/LangContext'
+import { authT } from '../data/authTranslations'
 
 const initialValues: SignUpValues = { firstName: '', lastName: '', email: '', company: '', password: '', confirmPassword: '', agreeToTerms: false }
 
@@ -41,48 +36,60 @@ async function mockSignUp(v: SignUpValues): Promise<void> {
 
 export default function SignUpPage() {
   const navigate = useNavigate()
+  const { lang } = useLang()
+  const t = authT[lang].signUp
+
   const onSubmit = useCallback(async (v: SignUpValues) => { await mockSignUp(v); navigate('/dashboard') }, [navigate])
   const { values, errors, serverError, isLoading, hasFieldError, handleChange, handleSubmit } = useAuthForm({ initialValues, validate, onSubmit })
 
   const allErrors = [...errors.map(e => e.message), ...(serverError ? [serverError] : [])]
 
+  const panelStats = t.panelStats.map((s, i) => ({
+    value: s.value,
+    label: s.label,
+    icon: [
+      <svg key={i} width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>,
+      <svg key={i} width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>,
+      <svg key={i} width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/></svg>,
+    ][i],
+  }))
+
   return (
-    <AuthLayout panelTitle="Începeți perioada de probă gratuită astăzi." panelSubtitle="Alăturați-vă miilor de companii de logistică care utilizează RoutaX pentru a-și optimiza operațiunile cu flotă și a reduce costurile." panelStats={PANEL_STATS} panelQuote={PANEL_QUOTE}>
+    <AuthLayout panelTitle={t.panelTitle} panelSubtitle={t.panelSubtitle} panelStats={panelStats} panelQuote={t.panelQuote}>
 
       <div className="mb-6">
-        <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">Creează-ți contul</h1>
-        <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">Începeți cu o perioadă de probă gratuită de 14 zile. Nu este necesar card de credit.</p>
+        <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">{t.title}</h1>
+        <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">{t.subtitle}</p>
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
-          <FormInput label="Prenume" type="text" placeholder="Alexandru" autoComplete="given-name"
+          <FormInput label={t.firstName} type="text" placeholder={t.firstNamePlaceholder} autoComplete="given-name"
             value={values.firstName} onChange={handleChange('firstName')} hasError={hasFieldError('firstName')} />
-          <FormInput label="Nume" type="text" placeholder="Vrabie" autoComplete="family-name"
+          <FormInput label={t.lastName} type="text" placeholder={t.lastNamePlaceholder} autoComplete="family-name"
             value={values.lastName} onChange={handleChange('lastName')} hasError={hasFieldError('lastName')} />
         </div>
 
-        <FormInput label="Adresă de e-mail de serviciu" type="email" placeholder="tu@companie.com" autoComplete="email"
+        <FormInput label={t.email} type="email" placeholder={t.emailPlaceholder} autoComplete="email"
           value={values.email} onChange={handleChange('email')} hasError={hasFieldError('email')}
           icon={<svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>}
         />
 
-        <FormInput label="Numele companiei" type="text" placeholder="LogiTrans SRL" autoComplete="organization"
+        <FormInput label={t.company} type="text" placeholder={t.companyPlaceholder} autoComplete="organization"
           optional value={values.company} onChange={handleChange('company')}
           icon={<svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>}
         />
 
-        <FormInput label="Parolă" type="password" placeholder="Minim 8 caractere" autoComplete="new-password"
+        <FormInput label={t.password} type="password" placeholder={t.passwordPlaceholder} autoComplete="new-password"
           value={values.password} onChange={handleChange('password')} hasError={hasFieldError('password')} showStrength
           icon={<svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>}
         />
 
-        <FormInput label="Confirmați parola" type="password" placeholder="••••••••" autoComplete="new-password"
+        <FormInput label={t.confirmPassword} type="password" placeholder={t.confirmPasswordPlaceholder} autoComplete="new-password"
           value={values.confirmPassword} onChange={handleChange('confirmPassword')} hasError={hasFieldError('confirmPassword')}
           icon={<svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>}
         />
 
-        {/* Terms */}
         <label className="flex cursor-pointer items-start gap-2.5">
           <div className="relative mt-0.5 flex-shrink-0">
             <input type="checkbox" className="peer sr-only" checked={values.agreeToTerms as boolean} onChange={handleChange('agreeToTerms')}/>
@@ -90,14 +97,13 @@ export default function SignUpPage() {
             <svg className="pointer-events-none absolute left-0.5 top-0.5 h-4 w-4 text-white opacity-0 peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
           </div>
           <span className="text-sm text-slate-600 dark:text-slate-400">
-            Sunt de acord cu{' '}
-            <a href="#" className="font-medium text-brand-600 hover:underline dark:text-brand-400">Termenii și condițiile</a>
-            {' '}și{' '}
-            <a href="#" className="font-medium text-brand-600 hover:underline dark:text-brand-400">Politica de confidențialitate</a>
+            {t.terms}{' '}
+            <a href="#" className="font-medium text-brand-600 hover:underline dark:text-brand-400">{t.termsLink}</a>
+            {' '}{t.and}{' '}
+            <a href="#" className="font-medium text-brand-600 hover:underline dark:text-brand-400">{t.privacyLink}</a>
           </span>
         </label>
 
-        {/* Error list — under terms, above submit */}
         {allErrors.length > 0 && (
           <div className="rounded-xl border border-red-200 bg-red-50 p-3.5 dark:border-red-900/40 dark:bg-red-950/30">
             <div className="mb-2 flex items-center gap-2">
@@ -120,14 +126,14 @@ export default function SignUpPage() {
         <button type="submit" disabled={isLoading}
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-55">
           {isLoading
-            ? <><svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4Z"/></svg>Se creează contul…</>
-            : 'Creați un cont gratuit'}
+            ? <><svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4Z"/></svg>{t.submitting}</>
+            : t.submit}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
-        Ai deja un cont?{' '}
-        <Link to="/sign-in" className="font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">Conectează-te în schimb.</Link>
+        {t.hasAccount}{' '}
+        <Link to="/sign-in" className="font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">{t.signIn}</Link>
       </p>
     </AuthLayout>
   )

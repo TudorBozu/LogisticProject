@@ -1,106 +1,227 @@
-﻿export type NavItem = { label: string; href: string };
+export type NavItem = { label: string; href: string };
 
-export const nav: NavItem[] = [
-    { label: "Why", href: "#why" },
-    { label: "Values", href: "#values" },
-    { label: "Features", href: "#features" },
-    { label: "FAQ", href: "#faq" },
-];
+const en = {
+    nav: [
+        { label: "Why", href: "#why" },
+        { label: "Values", href: "#values" },
+        { label: "Features", href: "#features" },
+        { label: "FAQ", href: "#faq" },
+    ] as NavItem[],
 
-export const hero = {
-    kicker: "Efficient, reliable & real-time",
-    title: "Streamline your logistics with a seamless project management platform.",
-    subtitle:
-        "A robust platform for managing logistics operations, tracking shipments, and optimizing workflows in real-time.",
-    primaryCta: { label: "Get started", href: "#cta" },
-    secondaryCta: { label: "Learn more", href: "#values" },
+    hero: {
+        kicker: "Efficient, reliable & real-time",
+        title: "Streamline your logistics with a seamless project management platform.",
+        subtitle:
+            "A robust platform for managing logistics operations, tracking shipments, and optimizing workflows in real-time.",
+        primaryCta: { label: "Get started", href: "/sign-up" },
+        secondaryCta: { label: "Learn more", href: "#values" },
+    },
+
+    why: {
+        title: "Why choose our Logistic Platform",
+        bullets: [
+            {
+                title: "End-to-end visibility",
+                text: "Track every shipment, update, and action from start to finish.",
+            },
+            {
+                title: "Real-time updates",
+                text: "Receive instant updates on logistics and operations to ensure timely decisions.",
+            },
+            {
+                title: "Scalable & reliable",
+                text: "Our platform grows with your logistics needs, offering scalability and dependability.",
+            },
+        ],
+    },
+
+    values: {
+        title: "Core Values",
+        items: [
+            {
+                title: "Efficiency over complexity",
+                text: "Our platform simplifies logistics management while providing powerful tools.",
+            },
+            {
+                title: "Real-time responsiveness",
+                text: "Respond to changes in the supply chain as they happen, with up-to-the-minute data.",
+            },
+            {
+                title: "Customer-centric design",
+                text: "Tailored features that meet the unique needs of logistics and transportation industries.",
+            },
+        ],
+    },
+
+    features: {
+        title: "Key Features",
+        items: [
+            {
+                title: "Real-time tracking",
+                text: "Track shipments in real-time, with automated updates and alerts.",
+            },
+            {
+                title: "Route optimization",
+                text: "Optimize routes and delivery schedules for efficiency and cost savings.",
+            },
+            {
+                title: "Integrated communications",
+                text: "Centralized messaging for coordination between teams, drivers, and clients.",
+            },
+            {
+                title: "Analytics & reporting",
+                text: "Get detailed insights into logistics performance and key metrics.",
+            },
+        ],
+    },
+
+    faq: {
+        title: "Frequently Asked Questions",
+        items: [
+            {
+                q: "How do I track shipments?",
+                a: "Simply enter the tracking number, and our platform will show real-time updates on location and status.",
+            },
+            {
+                q: "Can I integrate with existing systems?",
+                a: "Yes, our platform offers easy integration with major warehouse and transportation management systems.",
+            },
+            {
+                q: "Is customer support available?",
+                a: "Yes, we provide 24/7 customer support to assist with any logistics or technical issues.",
+            },
+        ],
+    },
+
+    cta: {
+        title: "Ready to optimize your logistics?",
+        subtitle:
+            "Get started with our platform and streamline your supply chain management, from warehousing to delivery.",
+        primary: { label: "Get Started", href: "/sign-up" },
+        secondary: { label: "Learn More", href: "#features" },
+    },
+
+    footer: {
+        brand: "RoutaX",
+        note: "Your logistics management platform (React + TS + Tailwind).",
+    },
 };
 
-export const why = {
-    title: "Why choose our Logistic Platform",
-    bullets: [
-        {
-            title: "End-to-end visibility",
-            text: "Track every shipment, update, and action from start to finish.",
-        },
-        {
-            title: "Real-time updates",
-            text: "Receive instant updates on logistics and operations to ensure timely decisions.",
-        },
-        {
-            title: "Scalable & reliable",
-            text: "Our platform grows with your logistics needs, offering scalability and dependability.",
-        },
-    ],
+const ro = {
+    nav: [
+        { label: "De ce noi", href: "#why" },
+        { label: "Valori", href: "#values" },
+        { label: "Funcționalități", href: "#features" },
+        { label: "FAQ", href: "#faq" },
+    ] as NavItem[],
+
+    hero: {
+        kicker: "Eficient, fiabil și în timp real",
+        title: "Optimizează-ți logistica cu o platformă integrată de management.",
+        subtitle:
+            "O platformă robustă pentru gestionarea operațiunilor logistice, urmărirea transporturilor și optimizarea fluxurilor în timp real.",
+        primaryCta: { label: "Începe acum", href: "/sign-up" },
+        secondaryCta: { label: "Află mai mult", href: "#values" },
+    },
+
+    why: {
+        title: "De ce să alegi platforma noastră logistică",
+        bullets: [
+            {
+                title: "Vizibilitate completă",
+                text: "Urmărește fiecare transport, actualizare și acțiune de la început până la final.",
+            },
+            {
+                title: "Actualizări în timp real",
+                text: "Primește actualizări instant despre logistică și operațiuni pentru decizii rapide.",
+            },
+            {
+                title: "Scalabil și fiabil",
+                text: "Platforma noastră crește odată cu nevoile tale logistice, oferind scalabilitate și siguranță.",
+            },
+        ],
+    },
+
+    values: {
+        title: "Valorile noastre",
+        items: [
+            {
+                title: "Eficiență în locul complexității",
+                text: "Platforma noastră simplifică managementul logistic oferind în același timp instrumente puternice.",
+            },
+            {
+                title: "Reactivitate în timp real",
+                text: "Răspunde la schimbările din lanțul de aprovizionare pe măsură ce apar, cu date actualizate la minut.",
+            },
+            {
+                title: "Design centrat pe client",
+                text: "Funcționalități personalizate care răspund nevoilor unice ale industriilor de logistică și transport.",
+            },
+        ],
+    },
+
+    features: {
+        title: "Funcționalități principale",
+        items: [
+            {
+                title: "Urmărire în timp real",
+                text: "Urmărește transporturile în timp real, cu actualizări și alerte automate.",
+            },
+            {
+                title: "Optimizarea rutelor",
+                text: "Optimizează rutele și programele de livrare pentru eficiență și economii de costuri.",
+            },
+            {
+                title: "Comunicații integrate",
+                text: "Mesagerie centralizată pentru coordonarea între echipe, șoferi și clienți.",
+            },
+            {
+                title: "Analize și rapoarte",
+                text: "Obține informații detaliate despre performanța logistică și indicatorii cheie.",
+            },
+        ],
+    },
+
+    faq: {
+        title: "Întrebări frecvente",
+        items: [
+            {
+                q: "Cum urmăresc transporturile?",
+                a: "Introduceți numărul de urmărire și platforma noastră va afișa actualizări în timp real privind locația și starea.",
+            },
+            {
+                q: "Pot integra cu sistemele existente?",
+                a: "Da, platforma noastră oferă integrare ușoară cu principalele sisteme de management al depozitelor și transporturilor.",
+            },
+            {
+                q: "Este disponibil suportul pentru clienți?",
+                a: "Da, oferim suport pentru clienți 24/7 pentru a ajuta cu orice problemă logistică sau tehnică.",
+            },
+        ],
+    },
+
+    cta: {
+        title: "Gata să-ți optimizezi logistica?",
+        subtitle:
+            "Începe cu platforma noastră și eficientizează managementul lanțului de aprovizionare, de la depozitare la livrare.",
+        primary: { label: "Începe acum", href: "/sign-up" },
+        secondary: { label: "Află mai mult", href: "#features" },
+    },
+
+    footer: {
+        brand: "RoutaX",
+        note: "Platforma ta de management logistic (React + TS + Tailwind).",
+    },
 };
 
-export const values = {
-    title: "Core Values",
-    items: [
-        {
-            title: "Efficiency over complexity",
-            text: "Our platform simplifies logistics management while providing powerful tools.",
-        },
-        {
-            title: "Real-time responsiveness",
-            text: "Respond to changes in the supply chain as they happen, with up-to-the-minute data.",
-        },
-        {
-            title: "Customer-centric design",
-            text: "Tailored features that meet the unique needs of logistics and transportation industries.",
-        },
-    ],
-};
+export const landingData = { en, ro };
 
-export const features = {
-    title: "Key Features",
-    items: [
-        {
-            title: "Real-time tracking",
-            text: "Track shipments in real-time, with automated updates and alerts.",
-        },
-        {
-            title: "Route optimization",
-            text: "Optimize routes and delivery schedules for efficiency and cost savings.",
-        },
-        {
-            title: "Integrated communications",
-            text: "Centralized messaging for coordination between teams, drivers, and clients.",
-        },
-        {
-            title: "Analytics & reporting",
-            text: "Get detailed insights into logistics performance and key metrics.",
-        },
-    ],
-};
-
-export const faq = {
-    title: "Frequently Asked Questions",
-    items: [
-        {
-            q: "How do I track shipments?",
-            a: "Simply enter the tracking number, and our platform will show real-time updates on location and status.",
-        },
-        {
-            q: "Can I integrate with existing systems?",
-            a: "Yes, our platform offers easy integration with major warehouse and transportation management systems.",
-        },
-        {
-            q: "Is customer support available?",
-            a: "Yes, we provide 24/7 customer support to assist with any logistics or technical issues.",
-        },
-    ],
-};
-
-export const cta = {
-    title: "Ready to optimize your logistics?",
-    subtitle:
-        "Get started with our platform and streamline your supply chain management, from warehousing to delivery.",
-    primary: { label: "Get Started", href: "#cta" },
-    secondary: { label: "Learn More", href: "#features" },
-};
-
-export const footer = {
-    brand: "RoutaX",
-    note: "Your logistics management platform (React + TS + Tailwind).",
-};
+// Legacy exports (EN default) — păstrate pentru compatibilitate
+export const nav = en.nav;
+export const hero = en.hero;
+export const why = en.why;
+export const values = en.values;
+export const features = en.features;
+export const faq = en.faq;
+export const cta = en.cta;
+export const footer = en.footer;
