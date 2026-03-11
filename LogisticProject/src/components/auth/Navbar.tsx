@@ -1,7 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
+import { PATHS } from '../../router/paths'
+import { clearAuthNav } from '../../router/Guard'
+import { useLang } from '../../context/LangContext'
 
 export default function Navbar() {
     const { pathname } = useLocation()
+    const { lang } = useLang()
 
     return (
         <nav className="
@@ -12,8 +16,12 @@ export default function Navbar() {
       backdrop-blur-md
       transition-colors duration-250
     ">
-            {/* Logo */}
-            <div className="flex items-center gap-2 mr-2">
+            {/* Logo — link spre landing */}
+            <Link
+                to={PATHS.public.home}
+                onClick={clearAuthNav}
+                className="flex items-center gap-2 mr-2 hover:opacity-80 transition-opacity"
+            >
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-600">
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
                         <path d="M5 15V5H12C13.6569 5 15 6.34315 15 8C15 9.65685 13.6569 11 12 11H5"
@@ -23,37 +31,34 @@ export default function Navbar() {
                     </svg>
                 </div>
                 <span className="font-display text-sm font-bold tracking-tight text-slate-900 dark:text-white">
-          Routa<span className="text-brand-600">X</span>
-        </span>
-            </div>
+                    Routa<span className="text-brand-600">X</span>
+                </span>
+            </Link>
 
             {/* Tabs */}
             <Link
-                to="/sign-in"
+                to={PATHS.public.signIn}
                 className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 ${
-                    pathname === '/sign-in'
+                    pathname === PATHS.public.signIn
                         ? 'bg-brand-600 text-white shadow-soft'
                         : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
                 }`}
             >
-                Sign In
+                {lang === 'RO' ? 'Autentificare' : 'Sign In'}
             </Link>
             <Link
-                to="/sign-up"
+                to={PATHS.public.signUp}
                 className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 ${
-                    pathname === '/sign-up'
+                    pathname === PATHS.public.signUp
                         ? 'bg-brand-600 text-white shadow-soft'
                         : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
                 }`}
             >
-                Sign Up
+                {lang === 'RO' ? 'Înregistrare' : 'Sign Up'}
             </Link>
 
             {/* Spacer */}
             <div className="flex-1" />
-
-            {/* Theme toggle */}
-            <ThemeToggle />
         </nav>
     )
 }

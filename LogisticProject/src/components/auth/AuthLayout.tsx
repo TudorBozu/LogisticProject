@@ -22,7 +22,7 @@ function StatCard({ value, label, icon }: StatCardProps) {
         </div>
         <div>
           <div className="font-display text-lg font-semibold leading-none text-white">{value}</div>
-          <div className="mt-0.5 text-xs text-blue-100">{label}</div>
+          <div className="mt-0.5 text-xs text-indigo-100">{label}</div>
         </div>
       </div>
   )
@@ -79,14 +79,14 @@ export default function AuthLayout({
               <h2 className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-3xl xl:text-4xl">
                 {panelTitle}
               </h2>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-blue-100 sm:text-base">
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-indigo-100 sm:text-base">
                 {panelSubtitle}
               </p>
             </div>
 
             {/* Stats */}
             <div className="mt-8 space-y-2.5">
-              <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-blue-300">
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-indigo-300">
                 {panelStats.length === 3 ? 'De ce echipele ne aleg pe noi' : 'Platform overview'}
               </p>
               {panelStats.map((s, i) => (
@@ -99,14 +99,14 @@ export default function AuthLayout({
 
             {/* Quote */}
             <div className="mt-8 border-t border-white/15 pt-6">
-              <p className="text-sm italic leading-relaxed text-blue-100">"{panelQuote.text}"</p>
+              <p className="text-sm italic leading-relaxed text-indigo-100">"{panelQuote.text}"</p>
               <div className="mt-3 flex items-center gap-2.5">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
                   {panelQuote.initials}
                 </div>
                 <div>
                   <div className="text-sm font-medium text-white">{panelQuote.name}</div>
-                  <div className="text-xs text-blue-200">{panelQuote.role}</div>
+                  <div className="text-xs text-indigo-200">{panelQuote.role}</div>
                 </div>
               </div>
             </div>
@@ -130,7 +130,7 @@ export default function AuthLayout({
           <div
               className="pointer-events-none absolute inset-0 z-0"
               style={{
-                background: 'linear-gradient(160deg, rgba(30,58,138,.84) 0%, rgba(37,99,235,.74) 40%, rgba(30,58,138,.90) 100%)',
+                background: 'linear-gradient(160deg, rgba(49,46,129,.88) 0%, rgba(79,70,229,.78) 40%, rgba(49,46,129,.94) 100%)',
               }}
           />
 
@@ -147,4 +147,3 @@ export default function AuthLayout({
       </div>
   )
 }
-//jdsudhdahsds
