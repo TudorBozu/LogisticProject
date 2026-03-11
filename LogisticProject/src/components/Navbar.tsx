@@ -38,7 +38,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                     <div className="flex items-center gap-12">
                         <a href="#top" className="flex items-center gap-2.5">
                             <span className="text-2xl font-semibold tracking-tight text-white">
-                                RoutaX
+                                Routa<span className="text-brand-400">X</span>
                             </span>
                         </a>
 
@@ -99,7 +99,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                         <Link
                             to={PATHS.public.signIn}
                             onClick={allowAuthNav}
-                            className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 transition-colors"
+                            className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors"
                         >
                             {lang === 'RO' ? 'Autentificare' : 'Sign in'}
                         </Link>
