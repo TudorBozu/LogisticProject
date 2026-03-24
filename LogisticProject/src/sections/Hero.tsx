@@ -4,17 +4,14 @@ import { Button } from "../components/ui/Button";
 import heroBg from "../assets/hero-bg.jpg";
 
 export function Hero({
-                         kicker,
-                         title,
-                         subtitle,
-                         primaryCta,
-                         secondaryCta,
+                         kicker, title, subtitle, primaryCta, secondaryCta, stats
                      }: {
     kicker: string;
     title: string;
     subtitle: string;
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
+    stats: { stat: string; label: string }[];
 }) {
     return (
         <section className="relative w-full min-h-screen overflow-hidden">
@@ -79,11 +76,7 @@ export function Hero({
 
                     {/* Stats cards */}
                     <div className="mx-auto mt-16 w-full max-w-4xl grid gap-4 sm:grid-cols-3 animate-zoom-in animation-delay-500">
-                        {[
-                            { stat: "98.6%", label: "Fleet uptime guaranteed" },
-                            { stat: "2,400+", label: "Vehicles tracked globally" },
-                            { stat: "34%", label: "Average fuel cost reduction" },
-                        ].map(function (card) {
+                        {stats.map(function (card) {
                             return (
                                 <div
                                     key={card.stat}

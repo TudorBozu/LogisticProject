@@ -15,6 +15,11 @@ const en = {
             "A robust platform for managing logistics operations, tracking shipments, and optimizing workflows in real-time.",
         primaryCta: { label: "Get started", href: "/sign-up" },
         secondaryCta: { label: "Learn more", href: "#values" },
+        stats: [                                                  // ← add this
+            { stat: "98.6%", label: "Fleet uptime guaranteed" },
+            { stat: "2,400+", label: "Vehicles tracked globally" },
+            { stat: "34%", label: "Average fuel cost reduction" },
+        ]
     },
 
     why: {
@@ -101,10 +106,22 @@ const en = {
         secondary: { label: "Learn More", href: "#features" },
     },
 
-    footer: {
-        brand: "RoutaX",
-        note: "Your logistics management platform (React + TS + Tailwind).",
-    },
+        footer: {
+            brand: "RoutaX",
+            note: "Your logistics management platform.",
+            columns: {
+                product: { title: "Product", links: ["Why RoutaX", "Features", "Values", "FAQ"] },
+                company: { title: "Company", links: ["About", "Careers", "Blog", "Press"] },
+                legal: { title: "Legal", links: ["Privacy Policy", "Terms of Service", "Cookie Policy", "GDPR"] },
+                connect: { title: "Connect", links: ["GitHub", "LinkedIn", "Twitter / X", "Contact Us"] },
+            },
+            requestInfo: {
+                title: "Request info",
+                description: "Interested in RoutaX for your fleet? Leave your email and we will reach out.",
+                placeholder: "your@company.com",
+            },
+            copyright: "RoutaX Technologies SRL · All rights reserved",
+        },
 };
 
 const ro = {
@@ -122,6 +139,11 @@ const ro = {
             "O platformă robustă pentru gestionarea operațiunilor logistice, urmărirea transporturilor și optimizarea fluxurilor în timp real.",
         primaryCta: { label: "Începe acum", href: "/sign-up" },
         secondaryCta: { label: "Află mai mult", href: "#values" },
+        stats: [
+            { stat: "98.6%", label: "Timp de funcționare garantat" },
+            { stat: "2,400+", label: "Vehicule urmărite global" },
+            { stat: "34%", label: "Reducere medie a costurilor cu combustibilul" },
+        ]
     },
 
     why: {
@@ -211,6 +233,18 @@ const ro = {
     footer: {
         brand: "RoutaX",
         note: "Platforma ta de management logistic (React + TS + Tailwind).",
+        columns: {
+            product: { title: "Produs", links: ["De ce RoutaX", "Funcționalități", "Valori", "FAQ"] },
+            company: { title: "Companie", links: ["Despre", "Cariere", "Blog", "Presă"] },
+            legal: { title: "Legal", links: ["Politica de confidențialitate", "Termeni și condiții", "Politica cookies", "GDPR"] },
+            connect: { title: "Contact", links: ["GitHub", "LinkedIn", "Twitter / X", "Contactați-ne"] },
+        },
+        requestInfo: {
+            title: "Solicită informații",
+            description: "Interesat de RoutaX pentru flota ta? Lasă emailul tău și te vom contacta.",
+            placeholder: "email@companie.ro",
+        },
+        copyright: "RoutaX Technologies SRL · Toate drepturile rezervate",
     },
 };
 

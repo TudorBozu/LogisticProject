@@ -63,7 +63,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                         {/* Language toggle */}
                         <button
                             onClick={handleLangClick}
-                            className="text-sm font-medium text-blue-200 hover:text-white focus:outline-none"
+                            className="text-sm font-medium text-blue-200 hover:text-white focus:outline-none w-8 text-center"
                             aria-label="Toggle language"
                             style={{
                                 transform: langAnim ? "scale(1.3)" : "scale(1)",
@@ -99,7 +99,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                         <Link
                             to={PATHS.public.signIn}
                             onClick={allowAuthNav}
-                            className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors"
+                            className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors min-w-[130px]"
                         >
                             {lang === 'RO' ? 'Autentificare' : 'Sign in'}
                         </Link>
