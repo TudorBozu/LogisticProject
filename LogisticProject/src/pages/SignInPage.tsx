@@ -4,6 +4,8 @@ import AuthLayout from '../components/auth/AuthLayout'
 import FormInput from '../components/auth/FormInput'
 import { useAuthForm, FieldError } from '../hooks/useAuthForm'
 import type { SignInValues } from '../types/auth'
+import { useLang } from '../context/LangContext'
+import { authT } from '../data/authTranslations'
 
 const PANEL_STATS = [
   { value: '98.6%', label: 'Fleet uptime guaranteed', icon: (<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>) },
@@ -30,34 +32,37 @@ async function mockSignIn(values: SignInValues): Promise<void> {
 
 export default function SignInPage() {
   const navigate = useNavigate()
+  const { lang } = useLang()
+  const t = authT[lang].signIn
+
   const onSubmit = useCallback(async (v: SignInValues) => { await mockSignIn(v); navigate('/dashboard') }, [navigate])
   const { values, errors, serverError, isLoading, hasFieldError, handleChange, handleSubmit } = useAuthForm({ initialValues, validate, onSubmit })
 
   const allErrors = [...errors.map(e => e.message), ...(serverError ? [serverError] : [])]
 
   return (
-    <AuthLayout panelTitle="Manage your fleet with confidence." panelSubtitle="Real-time tracking, predictive maintenance, and AI-powered route optimization — all in one platform." panelStats={PANEL_STATS} panelQuote={PANEL_QUOTE}>
+    <AuthLayout panelTitle={t.panelTitle} panelSubtitle={t.panelSubtitle} panelStats={PANEL_STATS} panelQuote={PANEL_QUOTE}>
 
       <div className="mb-7">
-        <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">Welcome back</h1>
-        <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">Sign in to your RoutaX account to continue.</p>
+        <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">{t.title}</h1>
+        <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">{t.subtitle}</p>
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
         <FormInput
-          label="Email address" type="email" placeholder="you@company.com" autoComplete="email"
+          label={t.email} type="email" placeholder={t.emailPlaceholder} autoComplete="email"
           value={values.email} onChange={handleChange('email')} hasError={hasFieldError('email')}
           icon={<svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>}
         />
 
         <div>
           <FormInput
-            label="Password" type="password" placeholder="••••••••" autoComplete="current-password"
+            label={t.password} type="password" placeholder={t.passwordPlaceholder} autoComplete="current-password"
             value={values.password} onChange={handleChange('password')} hasError={hasFieldError('password')}
             icon={<svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>}
           />
           <div className="mt-2 flex justify-end">
-            <a href="#" className="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400">Forgot password?</a>
+            <a href="#" className="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400">{t.forgotPassword}</a>
           </div>
         </div>
 
@@ -67,10 +72,9 @@ export default function SignInPage() {
             <div className="h-5 w-5 rounded-md border-2 border-slate-300 bg-white peer-checked:border-brand-600 peer-checked:bg-brand-600 dark:border-slate-600 dark:bg-slate-800 dark:peer-checked:bg-brand-600"/>
             <svg className="pointer-events-none absolute left-0.5 top-0.5 h-4 w-4 text-white opacity-0 peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
           </div>
-          <span className="text-sm text-slate-600 dark:text-slate-400">Remember me for 30 days</span>
+          <span className="text-sm text-slate-600 dark:text-slate-400">{t.remember}</span>
         </label>
 
-        {/* Error list — under remember me, above submit */}
         {allErrors.length > 0 && (
           <div className="rounded-xl border border-red-200 bg-red-50 p-3.5 dark:border-red-900/40 dark:bg-red-950/30">
             <div className="mb-2 flex items-center gap-2">
@@ -93,14 +97,14 @@ export default function SignInPage() {
         <button type="submit" disabled={isLoading}
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-55">
           {isLoading
-            ? <><svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4Z"/></svg>Signing in…</>
-            : 'Sign in to RoutaX'}
+            ? <><svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4Z"/></svg>{t.submitting}</>
+            : t.submit}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
-        Don't have an account?{' '}
-        <Link to="/sign-up" className="font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">Create one for free</Link>
+        {t.noAccount}{' '}
+        <Link to="/sign-up" className="font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">{t.createAccount}</Link>
       </p>
     </AuthLayout>
   )

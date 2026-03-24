@@ -18,7 +18,7 @@ function getStrength(pw: string): { score: number; label: string; color: string 
         { label: 'Foarte slabă', color: '#ef4444' },
         { label: 'Slabă', color: '#f97316' },
         { label: 'Medie', color: '#eab308' },
-        { label: 'Bună', color: '#3b82f6' },
+        { label: 'Bună', color: '#6366f1' },
         { label: 'Puternică', color: '#10b981' },
     ]
     return { score, ...map[score] }
