@@ -33,11 +33,10 @@ export function Hero({
                     className="absolute inset-x-0 top-0 h-48"
                     style={{ background: "dark:linear-gradient(to bottom, rgba(13,13,20,0.85) 0%, transparent 100%)" }}
                 />
-                {/* Bottom gradient to blend into Why section */}
-                <div
-                    className="absolute inset-x-0 bottom-0 h-48 z-0"
-                    style={{ background: "dark:linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
-                />
+                {/* Bottom gradient - light mode */}
+                <div className="absolute inset-x-0 bottom-0 h-48 z-0 bg-gradient-to-t from-white to-transparent opacity-100 dark:opacity-0 transition-opacity duration-[350ms] ease" />
+                {/* Bottom gradient - dark mode */}
+                <div className="absolute inset-x-0 bottom-0 h-48 z-0 bg-gradient-to-t from-[#0d0d14] to-transparent opacity-0 dark:opacity-100 transition-opacity duration-[350ms] ease" />
             </div>
 
             <Container>

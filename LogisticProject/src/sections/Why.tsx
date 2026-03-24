@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Container } from "../components/ui/Container";
 import { SectionHeading } from "../components/SectionHeading";
 import { useInView } from "../hooks/useInView.tsx";
+import { useTheme } from "../context/ThemeContext";
 
 // Add screenshot imports here when ready, e.g.:
 // import dashboardImg from "../assets/screenshots/dashboard.jpg";
@@ -25,6 +26,7 @@ export function Why({
     const [active, setActive] = useState(0);
     const [autoplay, setAutoplay] = useState(true);
     const { ref: laptopRef, inView: laptopInView } = useInView(0.5, "-100px");
+    const { theme } = useTheme();
 
     function pauseAndResume() {
         setAutoplay(false);
@@ -91,7 +93,7 @@ export function Why({
                             }}>
                             {/* Screen */}
                             <div
-                                className="relative overflow-hidden rounded-t-3xl bg-zinc-950 p-3"
+                                className="relative overflow-hidden rounded-t-3xl bg-zinc-800 dark:bg-zinc-950 p-3"
                                 style={{
                                     boxShadow: `0 0 80px 8px rgba(${slides[active].glow},0.15), 0 0 0 1px rgba(255,255,255,0.06)`,
                                     transition: "box-shadow 0.5s ease",
@@ -100,8 +102,8 @@ export function Why({
                             >
                                 {/* Camera notch */}
                                 <div className="absolute inset-x-0 top-0 flex items-center justify-center z-10">
-                                    <div className="flex h-6 w-20 items-center justify-center rounded-b-md bg-zinc-950">
-                                        <div className="h-1.5 w-1.5 rounded-full bg-zinc-800 ring-2 ring-zinc-700/75" />
+                                    <div className="flex h-6 w-20 items-center justify-center rounded-b-md bg-zinc-800 dark:bg-zinc-950">
+                                        <div className="h-1.5 w-1.5 rounded-full bg-zinc-700 dark:bg-zinc-800 ring-2 ring-zinc-600/75 dark:ring-zinc-700/75" />
                                     </div>
                                 </div>
 
@@ -157,15 +159,16 @@ export function Why({
                                 </div>
                             </div>
                             {/* END Screen */}
+                            
 
                             {/* Base */}
                             <div className="-mx-10 pb-1">
-                                <div className="relative h-4 w-full rounded-b-2xl bg-gradient-to-r from-zinc-800 via-zinc-950 to-zinc-800">
+                                <div className="relative h-4 w-full rounded-b-2xl bg-gradient-to-r from-zinc-400 via-zinc-300 to-zinc-400 dark:from-zinc-800 dark:via-zinc-950 dark:to-zinc-800">
                                     <div className="absolute inset-0 flex items-start justify-center">
-                                        <div className="h-1.5 w-20 rounded-b-md border-x border-b border-zinc-600/25 bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800 opacity-75" />
+                                        <div className="h-1.5 w-20 rounded-b-md border-x border-b border-zinc-300/25 dark:border-zinc-600/25 bg-gradient-to-r from-zinc-500 via-zinc-400 to-zinc-500 dark:from-zinc-800 dark:via-zinc-700 dark:to-zinc-800 opacity-75" />
                                     </div>
-                                    <div className="absolute -bottom-1 left-8 h-1 w-10 rounded-b-full bg-zinc-900" />
-                                    <div className="absolute right-8 -bottom-1 h-1 w-10 rounded-b-full bg-zinc-900" />
+                                    <div className="absolute -bottom-1 left-8 h-1 w-10 rounded-b-full bg-zinc-400 dark:bg-zinc-900" />
+                                    <div className="absolute right-8 -bottom-1 h-1 w-10 rounded-b-full bg-zinc-400 dark:bg-zinc-900" />
                                 </div>
                             </div>
                             {/* END Base */}
@@ -183,7 +186,7 @@ export function Why({
                                             className="h-1.5 rounded-full transition-all duration-300"
                                             style={{
                                                 width: i === active ? "1.5rem" : "0.375rem",
-                                                background: i === active ? "#3b82f6" : "rgba(255,255,255,0.2)",
+                                                background: i === active ? "#3b82f6" : theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.15)",
                                             }}
                                             aria-label={"Go to slide " + (i + 1)}
                                         />

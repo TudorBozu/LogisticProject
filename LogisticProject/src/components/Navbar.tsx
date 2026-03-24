@@ -25,7 +25,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
     return (
         <header
             className="sticky top-0 z-50 w-full"
-            style={{ background: "linear-gradient(to right, rgba(26,31,110,0.5) 0%, rgba(13,13,20,0.8) 100%)", backdropFilter: "blur(12px)" }}
+            style={{ background: "linear-gradient(to right, rgba(26,31,110,0.95) 0%, rgba(18,20,60,0.92) 40%, rgba(13,13,20,0.88) 100%)", backdropFilter: "blur(12px)" }}
         >
             <Container>
                 <div className="flex h-16 items-center justify-between">
