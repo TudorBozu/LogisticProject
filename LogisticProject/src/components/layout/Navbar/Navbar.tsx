@@ -12,10 +12,20 @@ import {
     UserIcon,
 } from "./icons";
 
-type Tab = "home" | "fleet" | "map" | "camera" | "analytics";
+export type NavTab = "home" | "fleet" | "map" | "camera" | "analytics";
 
-export default function Navbar() {
-    const [active, setActive] = useState<Tab>("fleet");
+type Props = {
+    activeTab?: NavTab;
+    onTabChange?: (tab: NavTab) => void;
+};
+
+export default function Navbar({ activeTab, onTabChange }: Props = {}) {
+    const [internalActive, setInternalActive] = useState<NavTab>("fleet");
+    const active = activeTab ?? internalActive;
+    const setActive = (tab: NavTab) => {
+        setInternalActive(tab);
+        onTabChange?.(tab);
+    };
     const [mobileOpen, setMobileOpen] = useState(false);
     const navRef = useRef<HTMLElement | null>(null);
 
