@@ -29,7 +29,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
     return (
         <header
             className="sticky top-0 z-50 w-full"
-            style={{ background: "linear-gradient(to right, rgba(26,31,110,0.5) 0%, rgba(13,13,20,0.8) 100%)", backdropFilter: "blur(12px)" }}
+            style={{ background: "linear-gradient(to right, rgba(26,31,110,0.95) 0%, rgba(18,20,60,0.92) 40%, rgba(13,13,20,0.88) 100%)", backdropFilter: "blur(12px)" }}
         >
             <Container>
                 <div className="flex h-16 items-center justify-between">
@@ -63,7 +63,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                         {/* Language toggle */}
                         <button
                             onClick={handleLangClick}
-                            className="text-sm font-medium text-blue-200 hover:text-white focus:outline-none"
+                            className="text-sm font-medium text-blue-200 hover:text-white focus:outline-none w-8 text-center"
                             aria-label="Toggle language"
                             style={{
                                 transform: langAnim ? "scale(1.3)" : "scale(1)",
@@ -99,7 +99,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                         <Link
                             to={PATHS.public.signIn}
                             onClick={allowAuthNav}
-                            className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors"
+                            className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors min-w-[130px]"
                         >
                             {lang === 'RO' ? 'Autentificare' : 'Sign in'}
                         </Link>

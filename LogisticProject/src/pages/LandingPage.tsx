@@ -31,7 +31,7 @@ export default function LandingPage() {
                 <CTA id="cta" {...d.cta} />
             </main>
 
-            <Footer brand={d.footer.brand} note={d.footer.note} />
+            <Footer />
         </div>
     );
 }

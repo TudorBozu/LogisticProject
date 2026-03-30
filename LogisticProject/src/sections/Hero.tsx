@@ -4,17 +4,14 @@ import { Button } from "../components/ui/Button";
 import heroBg from "../assets/hero-bg.jpg";
 
 export function Hero({
-                         kicker,
-                         title,
-                         subtitle,
-                         primaryCta,
-                         secondaryCta,
+                         kicker, title, subtitle, primaryCta, secondaryCta, stats
                      }: {
     kicker: string;
     title: string;
     subtitle: string;
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
+    stats: { stat: string; label: string }[];
 }) {
     return (
         <section className="relative w-full min-h-screen overflow-hidden">
@@ -33,11 +30,10 @@ export function Hero({
                     className="absolute inset-x-0 top-0 h-48"
                     style={{ background: "dark:linear-gradient(to bottom, rgba(13,13,20,0.85) 0%, transparent 100%)" }}
                 />
-                {/* Bottom gradient to blend into Why section */}
-                <div
-                    className="absolute inset-x-0 bottom-0 h-48 z-0"
-                    style={{ background: "dark:linear-gradient(to top, rgba(13,13,20,1) 0%, transparent 100%)" }}
-                />
+                {/* Bottom gradient - light mode */}
+                <div className="absolute inset-x-0 bottom-0 h-48 z-0 bg-gradient-to-t from-white to-transparent opacity-100 dark:opacity-0 transition-opacity duration-[350ms] ease" />
+                {/* Bottom gradient - dark mode */}
+                <div className="absolute inset-x-0 bottom-0 h-48 z-0 bg-gradient-to-t from-[#0d0d14] to-transparent opacity-0 dark:opacity-100 transition-opacity duration-[350ms] ease" />
             </div>
 
             <Container>
@@ -80,11 +76,7 @@ export function Hero({
 
                     {/* Stats cards */}
                     <div className="mx-auto mt-16 w-full max-w-4xl grid gap-4 sm:grid-cols-3 animate-zoom-in animation-delay-500">
-                        {[
-                            { stat: "98.6%", label: "Fleet uptime guaranteed" },
-                            { stat: "2,400+", label: "Vehicles tracked globally" },
-                            { stat: "34%", label: "Average fuel cost reduction" },
-                        ].map(function (card) {
+                        {stats.map(function (card) {
                             return (
                                 <div
                                     key={card.stat}
