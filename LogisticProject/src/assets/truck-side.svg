@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#f7f9fc"/>
+      <stop offset="1" stop-color="#eef2f8"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="url(#g)"/>
+  <!-- Trailer -->
+  <rect x="220" y="70" width="720" height="190" rx="14" fill="#f3f6fb" stroke="#d7e0ef" stroke-width="4"/>
+  <rect x="240" y="92" width="680" height="146" rx="10" fill="#ffffff" stroke="#e3eaf6" stroke-width="3"/>
+  <!-- Cab -->
+  <rect x="940" y="120" width="180" height="140" rx="20" fill="#f3f6fb" stroke="#d7e0ef" stroke-width="4"/>
+  <rect x="980" y="145" width="70" height="40" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="3"/>
+  <!-- Chassis -->
+  <rect x="220" y="250" width="900" height="22" rx="10" fill="#cbd5e1"/>
+  <!-- Wheels -->
+  <g>
+    <circle cx="410" cy="282" r="36" fill="#111827"/>
+    <circle cx="410" cy="282" r="18" fill="#9ca3af"/>
+    <circle cx="540" cy="282" r="36" fill="#111827"/>
+    <circle cx="540" cy="282" r="18" fill="#9ca3af"/>
+    <circle cx="1000" cy="282" r="36" fill="#111827"/>
+    <circle cx="1000" cy="282" r="18" fill="#9ca3af"/>
+  </g>
+  <!-- subtle markers -->
+  <g opacity="0.35">
+    <rect x="250" y="260" width="30" height="6" rx="3" fill="#ef4444"/>
+    <rect x="300" y="260" width="30" height="6" rx="3" fill="#ef4444"/>
+    <rect x="350" y="260" width="30" height="6" rx="3" fill="#ef4444"/>
+    <rect x="400" y="260" width="30" height="6" rx="3" fill="#ef4444"/>
+    <rect x="450" y="260" width="30" height="6" rx="3" fill="#ef4444"/>
+  </g>
+</svg>

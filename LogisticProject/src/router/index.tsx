@@ -9,6 +9,7 @@ import AuthNavbar from '../components/auth/Navbar'
 import SignInPage from '../pages/SignInPage'
 import SignUpPage from '../pages/SignUpPage'
 import DashboardPage from '../pages/DashboardPage'
+import FleetDashboard from '../pages/FleetDashboard'
 
 function RootLayout() {
   return (
@@ -52,6 +53,7 @@ export const router = createBrowserRouter([
         element: <Guard requireAuth />,
         children: [
           { path: PATHS.app.dashboard, element: <DashboardPage /> },
+          { path: PATHS.app.fleet, element: <FleetDashboard /> },
         ],
       },
 

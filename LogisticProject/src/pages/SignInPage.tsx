@@ -6,6 +6,7 @@ import { useAuthForm, FieldError } from '../hooks/useAuthForm'
 import type { SignInValues } from '../types/auth'
 import { useLang } from '../context/LangContext'
 import { authT } from '../data/authTranslations'
+import { findUser } from '../data/mockUsers'
 
 const PANEL_STATS = [
   { value: '98.6%', label: 'Fleet uptime guaranteed', icon: (<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>) },
@@ -25,9 +26,12 @@ function validate(values: SignInValues): FieldError[] {
   return errs
 }
 
-async function mockSignIn(values: SignInValues): Promise<void> {
+async function mockSignIn(values: SignInValues): Promise<string> {
   await new Promise<void>(r => setTimeout(r, 1200))
-  if (values.email === 'fail@example.com') throw new Error('Email sau parolă incorectă.')
+  const user = findUser(values.email, values.password)
+  if (!user) throw new Error('Email sau parolă incorectă.')
+  sessionStorage.setItem('routax_user', JSON.stringify({ id: user.id, name: user.name, role: user.role }))
+  return user.role
 }
 
 export default function SignInPage() {
@@ -35,7 +39,10 @@ export default function SignInPage() {
   const { lang } = useLang()
   const t = authT[lang].signIn
 
-  const onSubmit = useCallback(async (v: SignInValues) => { await mockSignIn(v); navigate('/dashboard') }, [navigate])
+  const onSubmit = useCallback(async (v: SignInValues) => {
+    const role = await mockSignIn(v)
+    navigate(role === 'admin' ? '/fleet' : '/dashboard')
+  }, [navigate])
   const { values, errors, serverError, isLoading, hasFieldError, handleChange, handleSubmit } = useAuthForm({ initialValues, validate, onSubmit })
 
   const allErrors = [...errors.map(e => e.message), ...(serverError ? [serverError] : [])]
