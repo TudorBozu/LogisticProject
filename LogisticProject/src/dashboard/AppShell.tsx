@@ -1,4 +1,5 @@
-import { ReactNode, useState } from 'react'
+import type { ReactNode } from 'react'
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 
@@ -128,7 +129,8 @@ function SidebarContent({ isDark, toggleTheme, onNavClick, onLogout }: SidebarCo
 
 // ── AppShell ──────────────────────────────────────────────────────────────
 export default function AppShell({ children }: { children: ReactNode }) {
-  const { isDark, toggleTheme } = useTheme()
+  const { theme, toggleTheme } = useTheme()
+  const isDark = theme === 'dark'
   const navigate = useNavigate()
   const [mobileOpen, setMobileOpen] = useState(false)
 
