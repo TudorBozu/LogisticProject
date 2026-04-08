@@ -40,7 +40,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
 
     return (
         <nav
-            ref={(el) => (navRef.current = el)}
+            ref={(el) => { navRef.current = el }}
             className="w-full max-w-[1400px] mx-auto bg-white shadow-soft
                  h-[60px] flex items-center gap-1.5 relative
                  px-5 rounded-[999px]

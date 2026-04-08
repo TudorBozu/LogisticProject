@@ -1,4 +1,4 @@
-export type UserRole = 'admin' | 'dispatcher' | 'driver'
+export type UserRole = 'admin' | 'dispatcher' | 'driver' | 'client'
 
 export interface MockUser {
   id: string
@@ -22,6 +22,13 @@ export const mockUsers: MockUser[] = [
     password: 'Disp456',
     name: 'Ion Dispatcher',
     role: 'dispatcher',
+  },
+  {
+    id: 'u-003',
+    email: 'client@routax.com',
+    password: 'Client123',
+    name: 'Alexandru Ciobanu',
+    role: 'client',
   },
 ]
 
