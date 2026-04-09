@@ -59,9 +59,10 @@ type Props = {
   trucks: Truck[]
   selectedId: string
   onSelect: (id: string) => void
+  minHeight?: number
 }
 
-export default function FleetMap({ trucks, selectedId, onSelect }: Props) {
+export default function FleetMap({ trucks, selectedId, onSelect, minHeight = 540 }: Props) {
   // Initialize progress for each truck at its initialProgress offset
   const [progress, setProgress] = useState<Record<string, number>>(() => {
     const init: Record<string, number> = {}
@@ -93,7 +94,7 @@ export default function FleetMap({ trucks, selectedId, onSelect }: Props) {
     : null
 
   return (
-    <div className="relative rounded-[28px] overflow-hidden shadow-soft border border-white/40 h-full" style={{ minHeight: 540 }}>
+    <div className="relative rounded-[28px] overflow-hidden shadow-soft border border-white/40 h-full" style={{ minHeight }}>
       <MapContainer
         center={[47.0, 28.0]}
         zoom={7}
