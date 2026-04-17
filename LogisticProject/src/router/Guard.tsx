@@ -23,7 +23,9 @@ export function clearAuthNav() {
 }
 
 function homeForRole(role: string): string {
-  return role === 'client' ? PATHS.DASHBOARD : PATHS.app.fleet
+  if (role === 'client') return PATHS.DASHBOARD
+  if (role === 'depot_worker') return PATHS.DEPOT
+  return PATHS.app.fleet
 }
 
 type GuardProps = {

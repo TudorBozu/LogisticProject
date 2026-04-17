@@ -89,7 +89,12 @@ export const router = createBrowserRouter([
       },
 
       // Depot — acces direct, fără autentificare (portal intern)
-      { path: PATHS.DEPOT, element: <DepotPortalPage /> },
+      {
+        element: <OrdersLayout />,
+        children: [
+          { path: PATHS.DEPOT, element: <DepotPortalPage /> },
+        ],
+      },
 
       { path: '*', element: <Navigate to={PATHS.public.home} replace /> },
     ],

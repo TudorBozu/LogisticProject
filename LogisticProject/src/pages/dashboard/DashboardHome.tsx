@@ -20,7 +20,7 @@ export default function DashboardHome() {
       <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
-            Bună ziua, Ana 👋
+            Bună ziua, Ana
           </h1>
           <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">
             Iată o privire de ansamblu asupra comenzilor tale
@@ -40,13 +40,13 @@ export default function DashboardHome() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         {[
-          { label: 'Total comenzi', value: total, icon: '📦', color: 'bg-brand-50 dark:bg-brand-900/20' },
-          { label: 'Active', value: active.length, icon: '🚛', color: 'bg-amber-50 dark:bg-amber-900/20' },
-          { label: 'Livrate', value: delivered, icon: '✅', color: 'bg-emerald-50 dark:bg-emerald-900/20' },
-          { label: 'km parcurși', value: MOCK_ORDERS.reduce((a,o)=>a+o.distance,0), icon: '🗺️', color: 'bg-purple-50 dark:bg-purple-900/20' },
+          { label: 'Total comenzi', value: total, icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#2563eb" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>, color: 'bg-brand-50 dark:bg-brand-900/20' },
+          { label: 'Active', value: active.length, icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#d97706" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>, color: 'bg-amber-50 dark:bg-amber-900/20' },
+          { label: 'Livrate', value: delivered, icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#10b981" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>, color: 'bg-emerald-50 dark:bg-emerald-900/20' },
+          { label: 'km parcurși', value: MOCK_ORDERS.reduce((a,o)=>a+o.distance,0), icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c-.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"/></svg>, color: 'bg-purple-50 dark:bg-purple-900/20' },
         ].map(s => (
           <div key={s.label} className={`rounded-2xl border border-slate-200/80 ${s.color} p-4 dark:border-slate-800`}>
-            <div className="text-2xl mb-1">{s.icon}</div>
+            <div className="mb-1">{s.icon}</div>
             <div className="font-display text-2xl font-bold text-slate-900 dark:text-white">{s.value}</div>
             <div className="text-xs text-slate-500 dark:text-slate-400">{s.label}</div>
           </div>

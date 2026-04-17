@@ -41,7 +41,9 @@ export default function SignInPage() {
 
   const onSubmit = useCallback(async (v: SignInValues) => {
     const role = await mockSignIn(v)
-    navigate(role === 'client' ? '/orders' : '/fleet')
+    if (role === 'client') navigate('/orders')
+    else if (role === 'depot_worker') navigate('/depot')
+    else navigate('/fleet')
   }, [navigate])
   const { values, errors, serverError, isLoading, hasFieldError, handleChange, handleSubmit } = useAuthForm({ initialValues, validate, onSubmit })
 
