@@ -11,6 +11,7 @@ import {
     SettingsIcon,
     UserIcon,
 } from "./icons";
+import { useLang } from "../../../context/LangContext";
 
 export type NavTab = "home" | "fleet" | "map" | "camera" | "analytics";
 
@@ -27,6 +28,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
         onTabChange?.(tab);
     };
     const [mobileOpen, setMobileOpen] = useState(false);
+    const { lang, toggleLang } = useLang();
     const navRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
@@ -133,6 +135,15 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
 
             <button
                 type="button"
+                title="Toggle language"
+                onClick={toggleLang}
+                className="h-[34px] px-3 rounded-full bg-slate-100 hover:bg-slate-200 transition text-[11px] font-bold text-slate-600 tracking-wide ml-0.5 max-[560px]:hidden"
+            >
+                {lang}
+            </button>
+
+            <button
+                type="button"
                 title="Profile"
                 className="w-[34px] h-[34px] rounded-full bg-slate-200 hover:bg-slate-300 transition grid place-items-center text-slate-500 ml-0.5 max-[560px]:hidden"
             >
@@ -190,6 +201,14 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                             {it.label}
                         </button>
                     ))}
+                    <button
+                        type="button"
+                        onClick={toggleLang}
+                        className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[13px] text-left text-[13.5px] font-medium text-slate-700 hover:bg-slate-50 transition"
+                    >
+                        <span className="w-[18px] h-[18px] grid place-items-center text-[12px]">🌐</span>
+                        {lang === "EN" ? "Switch to RO" : "Switch to EN"}
+                    </button>
                 </div>
             )}
         </nav>

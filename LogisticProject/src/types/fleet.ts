@@ -1,4 +1,6 @@
-﻿export type BoxCell = {
+export type BoxSlotStatus = 'free' | 'occupied' | 'problem';
+
+export type BoxCell = {
     id: string;
     x: number; // 0..1 relative to cargo overlay
     y: number; // 0..1
@@ -6,12 +8,14 @@
     h: number; // 0..1
     label: string;
     weightKg: number;
+    status: BoxSlotStatus;
 };
 
 export type Driver = {
     id: string;
     name: string;
     avatarSrc: string;
+    phone?: string;
 };
 
 export type Truck = {
@@ -26,4 +30,5 @@ export type Truck = {
     temperatureC: number;
     driver: Driver;
     boxes: BoxCell[];
+    alertCount?: number;
 };
