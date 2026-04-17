@@ -250,7 +250,6 @@ const ro = {
 
 export const landingData = { en, ro };
 
-// Legacy exports (EN default) — păstrate pentru compatibilitate
 export const nav = en.nav;
 export const hero = en.hero;
 export const why = en.why;
