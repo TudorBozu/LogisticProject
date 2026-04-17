@@ -1,5 +1,7 @@
 import type { Truck } from "../../types/fleet";
 import { truckRoutes } from "../../mock/truckRoutes";
+import { useLang } from "../../context/LangContext";
+import { fleetT } from "../../data/fleetTranslations";
 
 type Props = {
     trucks: Truck[];
@@ -8,15 +10,18 @@ type Props = {
 };
 
 export default function ActiveRoutes({ trucks, selectedId, onSelect }: Props) {
+    const { lang } = useLang();
+    const t = fleetT[lang];
+
     return (
         <div className="bg-white rounded-[28px] shadow-soft border border-slate-100 overflow-hidden h-full">
             <div className="p-5">
                 {/* header */}
                 <div className="flex items-center justify-between mb-4">
-                    <div className="text-[15px] font-extrabold text-slate-900">Active Routes</div>
+                    <div className="text-[15px] font-extrabold text-slate-900">{t.activeRoutes}</div>
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[11px] font-semibold text-emerald-700">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        {trucks.length} live
+                        {trucks.length} {t.live}
                     </span>
                 </div>
 
@@ -60,7 +65,7 @@ export default function ActiveRoutes({ trucks, selectedId, onSelect }: Props) {
                                             color: route.color,
                                         }}
                                     >
-                                        {truck.status}
+                                        {truck.status === "En route" ? t.enRoute : truck.status === "Stopped" ? t.stopped : t.loading}
                                     </span>
                                 </div>
 
@@ -91,7 +96,7 @@ export default function ActiveRoutes({ trucks, selectedId, onSelect }: Props) {
                                 <div className="grid grid-cols-2 gap-2">
                                     <div>
                                         <div className="flex justify-between mb-1">
-                                            <span className="text-[10px] text-slate-400">Fuel</span>
+                                            <span className="text-[10px] text-slate-400">{t.fuel}</span>
                                             <span className="text-[10px] font-semibold text-slate-600">{truck.fuelPct}%</span>
                                         </div>
                                         <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">

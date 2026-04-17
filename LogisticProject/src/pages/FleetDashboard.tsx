@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import TruckCargoView from "../components/fleet/TruckCargoView";
 import TruckList from "../components/fleet/TruckList";
 import VehicleInfoCard from "../components/fleet/VehicleInfoCard";
@@ -6,13 +6,18 @@ import BottomWidgets from "../components/fleet/BottomWidgets";
 import FleetMap from "../components/fleet/FleetMap";
 import ActiveRoutes from "../components/fleet/ActiveRoutes";
 import Navbar from "../components/layout/Navbar/Navbar";
-import type { NavTab } from "../components/layout/Navbar/Navbar";
 import { trucks as mockTrucks } from "../mock/trucks";
+import { FleetProvider, useFleet } from "../context/FleetContext";
 
-export default function FleetDashboard() {
-    const [selectedTruckId, setSelectedTruckId] = useState(mockTrucks[0].id);
-    const [activeBoxId, setActiveBoxId] = useState<string | null>(null);
-    const [activeTab, setActiveTab] = useState<NavTab>("fleet");
+function FleetDashboardContent() {
+    const {
+        selectedTruckId,
+        setSelectedTruckId,
+        activeBoxId,
+        setActiveBoxId,
+        activeTab,
+        setActiveTab,
+    } = useFleet();
 
     const selectedTruck = useMemo(
         () => mockTrucks.find((t) => t.id === selectedTruckId) ?? mockTrucks[0],
@@ -30,7 +35,6 @@ export default function FleetDashboard() {
 
             <div className={`max-w-[1400px] mx-auto mt-6 grid grid-cols-12 gap-6${activeTab === "map" ? " items-stretch" : ""}`}>
                 {activeTab === "map" ? (
-                    /* ── Map view ─────────────────────────────────────── */
                     <>
                         <div className="col-span-3 max-[1200px]:col-span-12">
                             <ActiveRoutes
@@ -48,7 +52,6 @@ export default function FleetDashboard() {
                         </div>
                     </>
                 ) : (
-                    /* ── Cargo / default view ─────────────────────────── */
                     <>
                         <div className="col-span-3 max-[1200px]:col-span-12">
                             <VehicleInfoCard truck={selectedTruck} />
@@ -77,5 +80,13 @@ export default function FleetDashboard() {
                 </div>
             )}
         </div>
+    );
+}
+
+export default function FleetDashboard() {
+    return (
+        <FleetProvider initialTruckId={mockTrucks[0].id}>
+            <FleetDashboardContent />
+        </FleetProvider>
     );
 }
