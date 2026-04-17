@@ -96,21 +96,21 @@ export default function TruckCargoView({ truck, activeBoxId, onSelectBox }: Prop
                 <div className="flex items-center gap-2 text-slate-500">
                     <button
                         className="w-10 h-10 rounded-full bg-white/80 backdrop-blur border border-slate-100 hover:bg-white transition grid place-items-center"
-                        title="Option 1"
+                        title="Sortare"
                     >
-                        <span className="text-[12px] font-bold">⌁</span>
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M7 12h10M11 18h2"/></svg>
                     </button>
                     <button
                         className="w-10 h-10 rounded-full bg-white/80 backdrop-blur border border-slate-100 hover:bg-white transition grid place-items-center"
-                        title="Option 2"
+                        title="Duplică"
                     >
-                        <span className="text-[12px] font-bold">⎘</span>
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                     <button
                         className="w-10 h-10 rounded-full bg-white/80 backdrop-blur border border-slate-100 hover:bg-white transition grid place-items-center"
-                        title="Edit"
+                        title="Editează"
                     >
-                        <span className="text-[12px] font-bold">✎</span>
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5Z"/></svg>
                     </button>
                 </div>
             </div>
