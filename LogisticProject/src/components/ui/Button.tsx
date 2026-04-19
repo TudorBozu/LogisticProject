@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { allowAuthNav } from "../../router/Guard";
+import { PATHS } from "../../router/paths";
 
 type Variant = "primary" | "secondary" | "ghost";
 
@@ -15,6 +16,10 @@ const variants: Record<Variant, string> = {
     secondary: "border-white/20 text-white/80 hover:bg-white/10 hover:text-white hover:border-white/40",
     ghost: "border-transparent text-white/70 hover:bg-white/5 hover:text-white",
 };
+
+function scrollToSection(id: string) {
+    document.getElementById(id.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' })
+}
 
 export function Button({ variant = "primary", className = "", href, ...props }: Props) {
     const classes = [
@@ -44,11 +49,24 @@ export function Button({ variant = "primary", className = "", href, ...props }: 
         className,
     ].join(" ");
 
+    if (href && href.startsWith("#")) {
+        return (
+            <button
+                onClick={() => scrollToSection(href)}
+                className={classes}
+                style={{ transition: "all 300ms cubic-bezier(0.23, 1, 0.32, 1)" }}
+            >
+                {props.children}
+            </button>
+        );
+    }
+
     if (href && href.startsWith("/")) {
+        const target = href === PATHS.public.signIn ? 'signin' : href === PATHS.public.signUp ? 'signup' : null
         return (
             <Link
                 to={href}
-                onClick={allowAuthNav}
+                onClick={target ? () => allowAuthNav(target) : undefined}
                 className={classes}
                 style={{ transition: "all 300ms cubic-bezier(0.23, 1, 0.32, 1)" }}
             >

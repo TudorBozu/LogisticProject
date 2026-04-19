@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { useEffect } from 'react'
 
 interface AuthLayoutProps {
   children: ReactNode
@@ -36,17 +35,6 @@ export default function AuthLayout({
                                      panelStats,
                                      panelQuote,
                                    }: AuthLayoutProps) {
-
-  // Forțează modul luminos pe paginile de autentificare
-  useEffect(() => {
-    const root = document.documentElement
-    const hadDark = root.classList.contains('dark')
-    root.classList.remove('dark')
-    return () => {
-      // Restaurează dark mode la ieșire dacă era activ
-      if (hadDark) root.classList.add('dark')
-    }
-  }, [])
 
   return (
       <div className="flex min-h-screen flex-col lg:flex-row pt-[53px]">
@@ -135,8 +123,8 @@ export default function AuthLayout({
               }}
           />
 
-          {/* Card — întotdeauna light (fără clase dark:) */}
-          <div className="relative z-10 w-full max-w-xl animate-fade-up rounded-3xl border border-white/60 bg-white p-8 shadow-card backdrop-blur-md sm:p-10">
+          {/* Card */}
+          <div className="relative z-10 w-full max-w-xl animate-fade-up rounded-3xl border border-white/60 bg-white dark:bg-slate-900 dark:border-slate-700/60 p-8 shadow-card backdrop-blur-md sm:p-10">
             {children}
           </div>
 

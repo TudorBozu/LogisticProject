@@ -37,6 +37,13 @@ export const mockUsers: MockUser[] = [
     name: 'Lucrator Depozit',
     role: 'depot_worker',
   },
+  {
+    id: 'u-005',
+    email: 'driver@routax.com',
+    password: 'Driver123',
+    name: 'Alexandru Vrabie',
+    role: 'driver',
+  },
 ]
 
 export function findUser(email: string, password: string): MockUser | null {

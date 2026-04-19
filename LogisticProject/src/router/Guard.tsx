@@ -1,21 +1,14 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { PATHS } from './paths'
+import Page403 from '../pages/errors/Page403'
+import { getSessionUser } from '../utils/auth'
 
-interface SessionUser {
-  id: string
-  name: string
-  role: string
+function getUser() {
+  return getSessionUser()
 }
 
-function getUser(): SessionUser | null {
-  const raw = sessionStorage.getItem('routax_user')
-  if (!raw) return null
-  try { return JSON.parse(raw) as SessionUser }
-  catch { return null }
-}
-
-export function allowAuthNav() {
-  sessionStorage.setItem('routax_auth_nav', '1')
+export function allowAuthNav(target: 'signin' | 'signup') {
+  sessionStorage.setItem('routax_auth_nav', target)
 }
 
 export function clearAuthNav() {
@@ -25,6 +18,7 @@ export function clearAuthNav() {
 function homeForRole(role: string): string {
   if (role === 'client') return PATHS.DASHBOARD
   if (role === 'depot_worker') return PATHS.DEPOT
+  if (role === 'driver') return PATHS.DRIVER
   return PATHS.app.fleet
 }
 
@@ -33,27 +27,28 @@ type GuardProps = {
   publicOnly?: boolean
   redirectTo?: string
   allowedRoles?: string[]
+  authTarget?: 'signin' | 'signup'
 }
 
-export function Guard({ requireAuth = false, publicOnly = false, redirectTo, allowedRoles }: GuardProps) {
-  const location = useLocation()
+export function Guard({ requireAuth = false, publicOnly = false, redirectTo, allowedRoles, authTarget }: GuardProps) {
   const user = getUser()
 
   if (publicOnly) {
     if (user) {
       return <Navigate to={redirectTo ?? homeForRole(user.role)} replace />
     }
-    if (!sessionStorage.getItem('routax_auth_nav')) {
+    const stored = sessionStorage.getItem('routax_auth_nav')
+    if (!stored || (authTarget && stored !== authTarget)) {
       return <Navigate to={PATHS.public.home} replace />
     }
   }
 
   if (requireAuth) {
     if (!user) {
-      return <Navigate to={redirectTo ?? PATHS.public.signIn} replace state={{ from: location }} />
+      return <Navigate to={PATHS.public.signIn} replace />
     }
     if (allowedRoles && !allowedRoles.includes(user.role)) {
-      return <Navigate to={homeForRole(user.role)} replace />
+      return <Page403 />
     }
   }
 
