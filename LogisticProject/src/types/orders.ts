@@ -6,6 +6,7 @@ export type ProductType =
   | 'Electronice'
   | 'Textile'
   | 'Produse chimice'
+  | 'Mobilier'
 
 export interface Destination {
   city: string

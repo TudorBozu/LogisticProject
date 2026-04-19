@@ -9,6 +9,7 @@ interface OrdersState {
 type OrdersAction =
   | { type: 'ADD_ORDER'; order: Order }
   | { type: 'UPDATE_STATUS'; orderId: string; status: OrderStatus }
+  | { type: 'DELETE_ORDER'; orderId: string }
 
 function reducer(state: OrdersState, action: OrdersAction): OrdersState {
   switch (action.type) {
@@ -20,6 +21,8 @@ function reducer(state: OrdersState, action: OrdersAction): OrdersState {
           o.id === action.orderId ? { ...o, status: action.status } : o
         ),
       }
+    case 'DELETE_ORDER':
+      return { orders: state.orders.filter(o => o.id !== action.orderId) }
     default:
       return state
   }
@@ -29,6 +32,7 @@ interface OrdersContextValue {
   orders: Order[]
   addOrder: (order: Order) => void
   updateStatus: (orderId: string, status: OrderStatus) => void
+  deleteOrder: (orderId: string) => void
 }
 
 const OrdersContext = createContext<OrdersContextValue | null>(null)
@@ -41,6 +45,7 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
       orders: state.orders,
       addOrder:     order   => dispatch({ type: 'ADD_ORDER', order }),
       updateStatus: (id, s) => dispatch({ type: 'UPDATE_STATUS', orderId: id, status: s }),
+      deleteOrder:  id      => dispatch({ type: 'DELETE_ORDER', orderId: id }),
     }}>
       {children}
     </OrdersContext.Provider>

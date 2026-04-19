@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { allowAuthNav } from '../router/Guard'
 import AuthLayout from '../components/auth/AuthLayout'
 import FormInput from '../components/auth/FormInput'
 import { useAuthForm, type FieldError } from '../hooks/useAuthForm'
@@ -113,7 +114,7 @@ export default function SignInPage() {
 
       <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
         {t.noAccount}{' '}
-        <Link to="/sign-up" className="font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">{t.createAccount}</Link>
+        <Link to="/sign-up" onClick={() => allowAuthNav('signup')} className="font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">{t.createAccount}</Link>
       </p>
     </AuthLayout>
   )

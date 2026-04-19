@@ -1,4 +1,5 @@
 ﻿import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavIconButton } from "./NavIconButton";
 import {
     AnalyticsIcon,
@@ -12,6 +13,8 @@ import {
     UserIcon,
 } from "./icons";
 import { useLang } from "../../../context/LangContext";
+import { useTheme } from "../../../context/ThemeContext";
+import { logout } from "../../../utils/auth";
 
 export type NavTab = "home" | "fleet" | "map" | "camera" | "analytics";
 
@@ -28,8 +31,16 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
         onTabChange?.(tab);
     };
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [langAnim, setLangAnim] = useState(false);
+    const [themeAnim, setThemeAnim] = useState(false);
     const { lang, toggleLang } = useLang();
+    const { theme, toggleTheme } = useTheme();
+    const dark = theme === 'dark';
     const navRef = useRef<HTMLElement | null>(null);
+    const navigate = useNavigate();
+
+    function handleLangClick() { setLangAnim(true); setTimeout(() => setLangAnim(false), 300); toggleLang(); }
+    function handleThemeClick() { setThemeAnim(true); setTimeout(() => setThemeAnim(false), 300); toggleTheme(); }
 
     useEffect(() => {
         const onDocClick = (e: MouseEvent) => {
@@ -136,10 +147,34 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
             <button
                 type="button"
                 title="Toggle language"
-                onClick={toggleLang}
-                className="h-[34px] px-3 rounded-full bg-slate-100 hover:bg-slate-200 transition text-[11px] font-bold text-slate-600 tracking-wide ml-0.5 max-[560px]:hidden"
+                onClick={handleLangClick}
+                className="h-[34px] px-3 rounded-full bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-600 tracking-wide ml-0.5 max-[560px]:hidden focus:outline-none"
+                style={{
+                    transform: langAnim ? 'scale(1.3)' : 'scale(1)',
+                    transition: 'transform 0.25s cubic-bezier(0.34,1.56,0.64,1)',
+                }}
             >
                 {lang}
+            </button>
+            <button
+                type="button"
+                title="Toggle theme"
+                onClick={handleThemeClick}
+                className="w-[34px] h-[34px] rounded-full bg-slate-100 hover:bg-slate-200 grid place-items-center text-slate-600 ml-0.5 max-[560px]:hidden focus:outline-none"
+                style={{
+                    transform: themeAnim ? 'rotate(30deg) scale(1.2)' : 'rotate(0deg) scale(1)',
+                    transition: 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1)',
+                }}
+            >
+                {dark ? (
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                    </svg>
+                ) : (
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                    </svg>
+                )}
             </button>
 
             <button
@@ -148,6 +183,18 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                 className="w-[34px] h-[34px] rounded-full bg-slate-200 hover:bg-slate-300 transition grid place-items-center text-slate-500 ml-0.5 max-[560px]:hidden"
             >
                 <UserIcon className="w-[18px] h-[18px]" />
+            </button>
+
+            <button
+                type="button"
+                title="Deconectare"
+                onClick={() => logout(navigate)}
+                className="h-[34px] px-3 rounded-full border border-slate-200 hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition text-[11px] font-bold text-slate-500 tracking-wide ml-0.5 max-[560px]:hidden flex items-center gap-1.5"
+            >
+                <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+                </svg>
+                Ieșire
             </button>
 
             <button
@@ -208,6 +255,16 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                     >
                         <span className="w-[18px] h-[18px] grid place-items-center text-[12px]">🌐</span>
                         {lang === "EN" ? "Switch to RO" : "Switch to EN"}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => logout(navigate)}
+                        className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[13px] text-left text-[13.5px] font-medium text-red-600 hover:bg-red-50 transition"
+                    >
+                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="shrink-0">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+                        </svg>
+                        Ieșire
                     </button>
                 </div>
             )}

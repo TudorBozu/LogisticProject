@@ -45,13 +45,13 @@ export function Navbar({ links }: { links: NavItem[] }) {
                         <nav className="hidden md:flex items-center gap-10">
                             {links.map(function (l) {
                                 return (
-                                    <a
+                                    <button
                                         key={l.href}
-                                        href={l.href}
+                                        onClick={() => document.getElementById(l.href.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' })}
                                         className="text-sm text-blue-200 hover:text-white transition-colors"
                                     >
                                         {l.label}
-                                    </a>
+                                    </button>
                                 );
                             })}
                         </nav>
@@ -98,7 +98,7 @@ export function Navbar({ links }: { links: NavItem[] }) {
                         {/* Sign in */}
                         <Link
                             to={PATHS.public.signIn}
-                            onClick={allowAuthNav}
+                            onClick={() => allowAuthNav('signin')}
                             className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors min-w-[130px]"
                         >
                             {lang === 'RO' ? 'Autentificare' : 'Sign in'}

@@ -1,7 +1,7 @@
 // src/App.tsx
 import "./App.css";
 
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import { Guard } from "./router/Guard";
 import { PATHS } from "./router/paths";
 
@@ -16,6 +16,14 @@ import OrdersListPage  from "./pages/orders/OrdersListPage";
 import CreateOrderPage from "./pages/orders/CreateOrderPage";
 import RouteViewPage   from "./pages/orders/RouteViewPage";
 import DepotPortalPage from "./depot/DepotPortalPage";
+import DriverLayout    from "./pages/driver/DriverLayout";
+import DriverTripPage  from "./pages/driver/DriverPage";
+import DriverVehiclePage from "./pages/driver/DriverVehiclePage";
+import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
+import Page401         from "./pages/errors/Page401";
+import Page403         from "./pages/errors/Page403";
+import Page404         from "./pages/errors/Page404";
+import Page500         from "./pages/errors/Page500";
 
 function AuthWrapper() {
     return <><AuthNavbar /><Outlet /></>
@@ -27,10 +35,14 @@ export default function App() {
             {/* Public */}
             <Route path={PATHS.public.home} element={<LandingPage />} />
 
-            {/* Auth pages — blocate dacă ești deja autentificat */}
-            <Route element={<Guard publicOnly />}>
+            {/* Auth pages — blocate dacă ești deja autentificat, și fiecare cu entry-point propriu */}
+            <Route element={<Guard publicOnly authTarget="signin" />}>
                 <Route element={<AuthWrapper />}>
                     <Route path={PATHS.public.signIn} element={<SignInPage />} />
+                </Route>
+            </Route>
+            <Route element={<Guard publicOnly authTarget="signup" />}>
+                <Route element={<AuthWrapper />}>
                     <Route path={PATHS.public.signUp} element={<SignUpPage />} />
                 </Route>
             </Route>
@@ -49,10 +61,26 @@ export default function App() {
                 <Route path={PATHS.ORDER_ROUTE}  element={<RouteViewPage />} />
             </Route>
 
+            {/* Driver portal */}
+            <Route element={<Guard requireAuth allowedRoles={['driver']} />}>
+                <Route element={<DriverLayout />}>
+                    <Route path={PATHS.DRIVER}         element={<DriverTripPage />} />
+                    <Route path={PATHS.DRIVER_VEHICLE} element={<DriverVehiclePage />} />
+                    <Route path={PATHS.DRIVER_HISTORY} element={<DriverHistoryPage />} />
+                </Route>
+            </Route>
+
             {/* Depot portal — acces intern direct */}
             <Route path={PATHS.DEPOT} element={<DepotPortalPage />} />
 
-            <Route path="*" element={<Navigate to={PATHS.public.home} replace />} />
+            {/* Error pages */}
+            <Route path={PATHS.errors.e401} element={<Page401 />} />
+            <Route path={PATHS.errors.e403} element={<Page403 />} />
+            <Route path={PATHS.errors.e404} element={<Page404 />} />
+            <Route path={PATHS.errors.e500} element={<Page500 />} />
+
+            {/* 404 catch-all */}
+            <Route path="*" element={<Page404 />} />
         </Routes>
     );
 }
