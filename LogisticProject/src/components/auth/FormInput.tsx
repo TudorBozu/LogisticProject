@@ -1,5 +1,7 @@
 import type { InputHTMLAttributes } from 'react'
 import { useState, forwardRef } from 'react'
+import { useLang } from '../../context/LangContext'
+import { authT } from '../../data/authTranslations'
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string
@@ -10,19 +12,12 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
     showStrength?: boolean
 }
 
-function getStrength(pw: string): { score: number; label: string; color: string } {
+function getStrength(pw: string, labels: readonly string[]): { score: number; label: string; color: string } {
     if (!pw) return { score: 0, label: '', color: '' }
     const checks = [pw.length >= 8, /[A-Z]/.test(pw), /[a-z]/.test(pw), /\d/.test(pw), /[^A-Za-z0-9]/.test(pw)]
     const score = checks.filter(Boolean).length
-    const map = [
-        { label: '', color: '' },
-        { label: 'Foarte slabă', color: '#ef4444' },
-        { label: 'Slabă', color: '#f97316' },
-        { label: 'Medie', color: '#eab308' },
-        { label: 'Bună', color: '#6366f1' },
-        { label: 'Puternică', color: '#10b981' },
-    ]
-    return { score, ...map[score] }
+    const colors = ['', '#ef4444', '#f97316', '#eab308', '#6366f1', '#10b981']
+    return { score, label: labels[score], color: colors[score] }
 }
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
@@ -30,13 +25,15 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         const [showPw, setShowPw] = useState(false)
         const isPassword = type === 'password'
         const resolvedType = isPassword ? (showPw ? 'text' : 'password') : type
-        const strength = showStrength ? getStrength(String(props.value ?? '')) : null
+        const { lang } = useLang()
+        const ft = authT[lang].form
+        const strength = showStrength ? getStrength(String(props.value ?? ''), ft.passwordStrength) : null
 
         return (
             <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     {label}
-                    {optional && <span className="ml-1 font-normal text-slate-400 dark:text-slate-500">(opțional)</span>}
+                    {optional && <span className="ml-1 font-normal text-slate-400 dark:text-slate-500">{ft.optional}</span>}
                 </label>
 
                 <div className="relative">

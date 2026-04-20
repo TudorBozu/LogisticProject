@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { PATHS } from '../../router/paths'
 import { clearAuthNav } from '../../router/Guard'
 import { useLang } from '../../context/LangContext'
 import { useTheme } from '../../context/ThemeContext'
+import BrandLogo from './BrandLogo'
 
 export default function Navbar() {
-    const { pathname } = useLocation()
     const { lang, toggleLang } = useLang()
     const { theme, toggleTheme } = useTheme()
     const dark = theme === 'dark'
@@ -31,24 +31,8 @@ export default function Navbar() {
                 onClick={clearAuthNav}
                 className="flex items-center gap-2 mr-2 hover:opacity-80 transition-opacity"
             >
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-600">
-                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                        <path d="M5 15V5H12C13.6569 5 15 6.34315 15 8C15 9.65685 13.6569 11 12 11H5"
-                              stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M10 11L15 15"
-                              stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                </div>
-                <span className="font-display text-sm font-bold tracking-tight text-slate-900 dark:text-white">
-                    Routa<span className="text-brand-600">X</span>
-                </span>
+                <BrandLogo inverted={!dark} />
             </Link>
-
-            <span className="px-3.5 py-1.5 rounded-lg text-sm font-medium bg-brand-600 text-white shadow-soft">
-                {pathname === PATHS.public.signIn
-                    ? (lang === 'RO' ? 'Autentificare' : 'Sign In')
-                    : (lang === 'RO' ? 'Înregistrare' : 'Sign Up')}
-            </span>
 
             {/* Spacer */}
             <div className="flex-1" />

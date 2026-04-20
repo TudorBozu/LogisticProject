@@ -1,5 +1,9 @@
 export const authT = {
   EN: {
+    form: {
+      optional: '(optional)',
+      passwordStrength: ['', 'Very weak', 'Weak', 'Medium', 'Good', 'Strong'],
+    },
     signIn: {
       title: 'Welcome back',
       subtitle: 'Sign in to your RoutaX account to continue.',
@@ -15,6 +19,25 @@ export const authT = {
       createAccount: 'Create one for free',
       panelTitle: 'Manage your fleet with confidence.',
       panelSubtitle: 'Real-time tracking, predictive maintenance, and AI-powered route optimization — all in one platform.',
+      panelStatsLabel: 'Why teams choose us',
+      panelStats: [
+        { value: '14 days', label: 'Free trial period, no credit card required' },
+        { value: '500+', label: 'Companies onboarded this year' },
+        { value: '4.9 / 5', label: 'Average customer satisfaction' },
+      ],
+      panelQuote: {
+        text: 'We reduced fuel costs by 28% in the first quarter. The ROI was immediate and undeniable.',
+        name: 'Marina Ionescu',
+        role: 'CEO, TransAuto Moldova',
+        initials: 'MI',
+      },
+      errors: {
+        emailRequired: 'Email address is required',
+        emailInvalid: 'Email address is not valid',
+        passwordRequired: 'Password is required',
+        passwordTooShort: 'Password must be at least 6 characters',
+        errorsFound: (n: number) => `${n} error${n !== 1 ? 's' : ''} found`,
+      },
     },
     signUp: {
       title: 'Create your account',
@@ -41,6 +64,7 @@ export const authT = {
       signIn: 'Sign in instead.',
       panelTitle: 'Start your free trial today.',
       panelSubtitle: 'Join thousands of logistics companies using RoutaX to optimize their fleet operations and reduce costs.',
+      panelStatsLabel: 'Platform overview',
       panelStats: [
         { value: '14 days', label: 'Free trial period, no credit card required' },
         { value: '500+', label: 'Companies onboarded this year' },
@@ -52,9 +76,28 @@ export const authT = {
         role: 'CEO, TransAuto Moldova',
         initials: 'MI',
       },
+      errors: {
+        firstNameRequired: 'First name is required',
+        lastNameRequired: 'Last name is required',
+        emailRequired: 'Email address is required',
+        emailInvalid: 'Email address is not valid',
+        passwordRequired: 'Password is required',
+        passwordTooShort: 'Password must be at least 8 characters',
+        passwordNoUpper: 'Password must contain at least one uppercase letter',
+        passwordNoLower: 'Password must contain at least one lowercase letter',
+        passwordNoNumber: 'Password must contain at least one number',
+        confirmPasswordRequired: 'Please confirm your password',
+        passwordsMismatch: 'Passwords do not match',
+        termsRequired: 'You must accept the Terms and Conditions',
+        errorsFound: (n: number) => `${n} error${n !== 1 ? 's' : ''} found`,
+      },
     },
   },
   RO: {
+    form: {
+      optional: '(opțional)',
+      passwordStrength: ['', 'Foarte slabă', 'Slabă', 'Medie', 'Bună', 'Puternică'],
+    },
     signIn: {
       title: 'Bine ai revenit',
       subtitle: 'Autentifică-te în contul tău RoutaX pentru a continua.',
@@ -70,6 +113,25 @@ export const authT = {
       createAccount: 'Creează unul gratuit',
       panelTitle: 'Gestionează-ți flota cu încredere.',
       panelSubtitle: 'Urmărire în timp real, întreținere predictivă și optimizare a rutelor bazată pe AI — totul într-o singură platformă.',
+      panelStatsLabel: 'De ce echipele ne aleg pe noi',
+      panelStats: [
+        { value: '14 zile', label: 'Perioadă de încercare gratuită, fără card de credit' },
+        { value: '500+', label: 'Companii integrate în acest an' },
+        { value: '4.9 / 5', label: 'Satisfacția medie a clienților' },
+      ],
+      panelQuote: {
+        text: 'Am redus costurile cu combustibilul cu 28% în primul trimestru. Randamentul investiției a fost imediat și incontestabil.',
+        name: 'Marina Ionescu',
+        role: 'Director general, TransAuto Moldova',
+        initials: 'MI',
+      },
+      errors: {
+        emailRequired: 'Adresa de e-mail este obligatorie',
+        emailInvalid: 'Adresa de e-mail nu este validă',
+        passwordRequired: 'Parola este obligatorie',
+        passwordTooShort: 'Parola trebuie să aibă cel puțin 6 caractere',
+        errorsFound: (n: number) => `${n} ${n !== 1 ? 'erori' : 'eroare'} găsite`,
+      },
     },
     signUp: {
       title: 'Creează-ți contul',
@@ -96,6 +158,7 @@ export const authT = {
       signIn: 'Conectează-te în schimb.',
       panelTitle: 'Începeți perioada de probă gratuită astăzi.',
       panelSubtitle: 'Alăturați-vă miilor de companii de logistică care utilizează RoutaX pentru a-și optimiza operațiunile cu flotă și a reduce costurile.',
+      panelStatsLabel: 'Prezentare generală',
       panelStats: [
         { value: '14 zile', label: 'Perioadă de încercare gratuită, fără card de credit' },
         { value: '500+', label: 'Companii integrate în acest an' },
@@ -106,6 +169,21 @@ export const authT = {
         name: 'Marina Ionescu',
         role: 'Director general, TransAuto Moldova',
         initials: 'MI',
+      },
+      errors: {
+        firstNameRequired: 'Prenumele este obligatoriu',
+        lastNameRequired: 'Numele este obligatoriu',
+        emailRequired: 'Adresa de e-mail este obligatorie',
+        emailInvalid: 'Adresa de e-mail nu este validă',
+        passwordRequired: 'Parola este obligatorie',
+        passwordTooShort: 'Parola trebuie să aibă cel puțin 8 caractere',
+        passwordNoUpper: 'Parola trebuie să conțină cel puțin o literă mare',
+        passwordNoLower: 'Parola trebuie să conțină cel puțin o literă mică',
+        passwordNoNumber: 'Parola trebuie să conțină cel puțin o cifră',
+        confirmPasswordRequired: 'Confirmarea parolei este obligatorie',
+        passwordsMismatch: 'Parolele nu coincid',
+        termsRequired: 'Trebuie să acceptați Termenii și Condițiile',
+        errorsFound: (n: number) => `${n} ${n !== 1 ? 'erori' : 'eroare'} găsite`,
       },
     },
   },
