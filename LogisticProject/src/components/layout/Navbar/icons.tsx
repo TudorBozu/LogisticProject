@@ -40,6 +40,17 @@ export function CameraIcon({ className }: IconProps) {
     );
 }
 
+export function OrdersIcon({ className }: IconProps) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" className={className}>
+            <rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+            <line x1="8" y1="7" x2="16" y2="7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+            <line x1="8" y1="11" x2="16" y2="11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+            <line x1="8" y1="15" x2="12" y2="15" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+        </svg>
+    );
+}
+
 export function AnalyticsIcon({ className }: IconProps) {
     return (
         <svg viewBox="0 0 24 24" fill="none" className={className}>

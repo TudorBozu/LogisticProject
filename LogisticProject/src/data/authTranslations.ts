@@ -1,5 +1,8 @@
 export const authT = {
   EN: {
+    layout: {
+      rights: 'All rights reserved',
+    },
     form: {
       optional: '(optional)',
       passwordStrength: ['', 'Very weak', 'Weak', 'Medium', 'Good', 'Strong'],
@@ -94,6 +97,9 @@ export const authT = {
     },
   },
   RO: {
+    layout: {
+      rights: 'Toate drepturile rezervate',
+    },
     form: {
       optional: '(opțional)',
       passwordStrength: ['', 'Foarte slabă', 'Slabă', 'Medie', 'Bună', 'Puternică'],

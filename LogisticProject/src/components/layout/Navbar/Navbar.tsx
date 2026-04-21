@@ -1,13 +1,15 @@
 ﻿import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import { NavIconButton } from "./NavIconButton";
+import { PATHS } from "../../../router/paths.ts"
 import {
     AnalyticsIcon,
     BellIcon,
-    CameraIcon,
     FleetIcon,
     HomeIcon,
     MapIcon,
+    OrdersIcon,
     SearchIcon,
     SettingsIcon,
     UserIcon,
@@ -16,7 +18,7 @@ import { useLang } from "../../../context/LangContext";
 import { useTheme } from "../../../context/ThemeContext";
 import { logout } from "../../../utils/auth";
 
-export type NavTab = "home" | "fleet" | "map" | "camera" | "analytics";
+export type NavTab = "home" | "orders" | "fleet" | "map" | "analytics";
 
 type Props = {
     activeTab?: NavTab;
@@ -59,7 +61,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                  px-5 rounded-[999px]
                  max-[560px]:px-3.5 max-[560px]:rounded-2xl"
         >
-            <a href="#" className="flex items-center gap-2.5 no-underline shrink-0 mr-2">
+            <Link to={PATHS.app.fleet} className="flex items-center gap-2.5 no-underline shrink-0 mr-2">
         <span className="w-[34px] h-[34px] bg-blue-500 rounded-[9px] grid place-items-center shrink-0">
           <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5">
             <path
@@ -75,7 +77,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                 <span className="text-[15px] font-extrabold text-slate-900 tracking-[-0.3px] whitespace-nowrap max-[560px]:hidden">
           RoutaX
         </span>
-            </a>
+            </Link>
 
             <div className="contents max-[560px]:hidden">
                 <NavIconButton title="Home" active={active === "home"} onClick={() => setActive("home")}>
@@ -90,8 +92,8 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                     <MapIcon className="w-5 h-5" />
                 </NavIconButton>
 
-                <NavIconButton title="Camera" active={active === "camera"} onClick={() => setActive("camera")}>
-                    <CameraIcon className="w-5 h-5" />
+                <NavIconButton title="Orders" active={active === "orders"} onClick={() => setActive("orders")}>
+                    <OrdersIcon className="w-5 h-5" />
                 </NavIconButton>
 
                 <NavIconButton title="Analytics" active={active === "analytics"} onClick={() => setActive("analytics")}>
@@ -229,7 +231,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                         { key: "home" as const, label: "Home", icon: <HomeIcon className="w-[18px] h-[18px]" /> },
                         { key: "fleet" as const, label: "Fleet management", icon: <FleetIcon className="w-[18px] h-[18px]" /> },
                         { key: "map" as const, label: "Map", icon: <MapIcon className="w-[18px] h-[18px]" /> },
-                        { key: "camera" as const, label: "Camera", icon: <CameraIcon className="w-[18px] h-[18px]" /> },
+                        { key: "orders" as const, label: "Orders", icon: <OrdersIcon className="w-[18px] h-[18px]" /> },
                         { key: "analytics" as const, label: "Analytics", icon: <AnalyticsIcon className="w-[18px] h-[18px]" /> },
                     ].map((it) => (
                         <button
