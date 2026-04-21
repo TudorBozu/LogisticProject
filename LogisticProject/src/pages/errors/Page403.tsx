@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { PATHS } from '../../router/paths'
-import { getSessionUser } from '../../utils/auth'
+import { useAuth } from '../../context/AuthContext'
 
 function homeForRole(role: string): string {
   if (role === 'client') return PATHS.DASHBOARD
@@ -11,7 +11,7 @@ function homeForRole(role: string): string {
 
 export default function Page403() {
   const navigate = useNavigate()
-  const user = getSessionUser()
+  const { user } = useAuth()
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center px-4 transition-colors">
       <div className="text-center max-w-md">

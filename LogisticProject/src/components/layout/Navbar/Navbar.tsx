@@ -1,22 +1,24 @@
 ﻿import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import { NavIconButton } from "./NavIconButton";
+import { PATHS } from "../../../router/paths.ts"
 import {
     AnalyticsIcon,
     BellIcon,
-    CameraIcon,
     FleetIcon,
     HomeIcon,
     MapIcon,
+    OrdersIcon,
     SearchIcon,
     SettingsIcon,
     UserIcon,
 } from "./icons";
 import { useLang } from "../../../context/LangContext";
 import { useTheme } from "../../../context/ThemeContext";
-import { logout } from "../../../utils/auth";
+import { useAuth } from "../../../context/AuthContext";
 
-export type NavTab = "home" | "fleet" | "map" | "camera" | "analytics";
+export type NavTab = "home" | "orders" | "fleet" | "map" | "analytics";
 
 type Props = {
     activeTab?: NavTab;
@@ -38,6 +40,8 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
     const dark = theme === 'dark';
     const navRef = useRef<HTMLElement | null>(null);
     const navigate = useNavigate();
+    const { logout } = useAuth();
+    const handleLogout = () => { logout(); navigate(PATHS.public.home) };
 
     function handleLangClick() { setLangAnim(true); setTimeout(() => setLangAnim(false), 300); toggleLang(); }
     function handleThemeClick() { setThemeAnim(true); setTimeout(() => setThemeAnim(false), 300); toggleTheme(); }
@@ -59,7 +63,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                  px-5 rounded-[999px]
                  max-[560px]:px-3.5 max-[560px]:rounded-2xl"
         >
-            <a href="#" className="flex items-center gap-2.5 no-underline shrink-0 mr-2">
+            <Link to={PATHS.app.fleet} className="flex items-center gap-2.5 no-underline shrink-0 mr-2">
         <span className="w-[34px] h-[34px] bg-blue-500 rounded-[9px] grid place-items-center shrink-0">
           <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5">
             <path
@@ -75,7 +79,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                 <span className="text-[15px] font-extrabold text-slate-900 tracking-[-0.3px] whitespace-nowrap max-[560px]:hidden">
           RoutaX
         </span>
-            </a>
+            </Link>
 
             <div className="contents max-[560px]:hidden">
                 <NavIconButton title="Home" active={active === "home"} onClick={() => setActive("home")}>
@@ -90,8 +94,8 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                     <MapIcon className="w-5 h-5" />
                 </NavIconButton>
 
-                <NavIconButton title="Camera" active={active === "camera"} onClick={() => setActive("camera")}>
-                    <CameraIcon className="w-5 h-5" />
+                <NavIconButton title="Orders" active={active === "orders"} onClick={() => setActive("orders")}>
+                    <OrdersIcon className="w-5 h-5" />
                 </NavIconButton>
 
                 <NavIconButton title="Analytics" active={active === "analytics"} onClick={() => setActive("analytics")}>
@@ -188,7 +192,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
             <button
                 type="button"
                 title="Deconectare"
-                onClick={() => logout(navigate)}
+                onClick={handleLogout}
                 className="h-[34px] px-3 rounded-full border border-slate-200 hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition text-[11px] font-bold text-slate-500 tracking-wide ml-0.5 max-[560px]:hidden flex items-center gap-1.5"
             >
                 <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -229,7 +233,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                         { key: "home" as const, label: "Home", icon: <HomeIcon className="w-[18px] h-[18px]" /> },
                         { key: "fleet" as const, label: "Fleet management", icon: <FleetIcon className="w-[18px] h-[18px]" /> },
                         { key: "map" as const, label: "Map", icon: <MapIcon className="w-[18px] h-[18px]" /> },
-                        { key: "camera" as const, label: "Camera", icon: <CameraIcon className="w-[18px] h-[18px]" /> },
+                        { key: "orders" as const, label: "Orders", icon: <OrdersIcon className="w-[18px] h-[18px]" /> },
                         { key: "analytics" as const, label: "Analytics", icon: <AnalyticsIcon className="w-[18px] h-[18px]" /> },
                     ].map((it) => (
                         <button
@@ -258,7 +262,7 @@ export default function Navbar({ activeTab, onTabChange }: Props = {}) {
                     </button>
                     <button
                         type="button"
-                        onClick={() => logout(navigate)}
+                        onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[13px] text-left text-[13.5px] font-medium text-red-600 hover:bg-red-50 transition"
                     >
                         <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="shrink-0">

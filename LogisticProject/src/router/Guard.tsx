@@ -1,11 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { PATHS } from './paths'
 import Page403 from '../pages/errors/Page403'
-import { getSessionUser } from '../utils/auth'
-
-function getUser() {
-  return getSessionUser()
-}
+import { useAuth } from '../context/AuthContext'
 
 export function allowAuthNav(target: 'signin' | 'signup') {
   sessionStorage.setItem('routax_auth_nav', target)
@@ -31,7 +27,7 @@ type GuardProps = {
 }
 
 export function Guard({ requireAuth = false, publicOnly = false, redirectTo, allowedRoles, authTarget }: GuardProps) {
-  const user = getUser()
+  const { user } = useAuth()
 
   if (publicOnly) {
     if (user) {

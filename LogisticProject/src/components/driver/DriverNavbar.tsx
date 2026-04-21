@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PATHS } from '../../router/paths'
 import { useTheme } from '../../context/ThemeContext'
-import { logout } from '../../utils/auth'
+import { useAuth } from '../../context/AuthContext'
 
 const NAV = [
   { to: PATHS.DRIVER,         label: 'Cursa mea' },
@@ -16,6 +16,7 @@ export default function DriverNavbar({ driverName, driverInitials }: Props) {
   const { pathname }           = useLocation()
   const { theme, toggleTheme } = useTheme()
   const navigate               = useNavigate()
+  const { logout } = useAuth()
   const dark = theme === 'dark'
   const [themeAnim, setThemeAnim] = useState(false)
 
@@ -88,7 +89,7 @@ export default function DriverNavbar({ driverName, driverInitials }: Props) {
           )}
         </button>
         <button
-          onClick={() => logout(navigate)}
+          onClick={() => { logout(); navigate('/') }}
           className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
         >
           <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

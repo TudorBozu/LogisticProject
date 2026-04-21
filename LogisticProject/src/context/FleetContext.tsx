@@ -29,7 +29,7 @@ export function FleetProvider({
 }) {
     const [selectedTruckId, setSelectedTruckId] = useState(initialTruckId);
     const [activeBoxId, setActiveBoxId] = useState<string | null>(null);
-    const [activeTab, setActiveTab] = useState<NavTab>('fleet');
+    const [activeTab, setActiveTab] = useState<NavTab>('orders');
     const [editMode, setEditMode] = useState(false);
     const [filterStatus, setFilterStatus] = useState<FilterStatus>('All');
 

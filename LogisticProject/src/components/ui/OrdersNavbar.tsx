@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PATHS } from '../../router/paths'
 import { useTheme } from '../../context/ThemeContext'
 import { useLang } from '../../context/LangContext'
-import { getSessionUser, logout } from '../../utils/auth'
+import { useAuth } from '../../context/AuthContext'
 
 const NAV = [
   { to: PATHS.DASHBOARD, label: 'Dashboard' },
@@ -20,12 +20,12 @@ export default function OrdersNavbar() {
   const { theme, toggleTheme } = useTheme()
   const { lang, toggleLang } = useLang()
   const navigate = useNavigate()
+  const { user, logout } = useAuth()
   const dark = theme === 'dark'
-  const user = getSessionUser()
   const [langAnim, setLangAnim] = useState(false)
   const [themeAnim, setThemeAnim] = useState(false)
 
-  function handleLogout() { logout(navigate) }
+  function handleLogout() { logout(); navigate('/') }
   function handleLangClick() { setLangAnim(true); setTimeout(() => setLangAnim(false), 300); toggleLang() }
   function handleThemeClick() { setThemeAnim(true); setTimeout(() => setThemeAnim(false), 300); toggleTheme() }
 
@@ -71,9 +71,9 @@ export default function OrdersNavbar() {
         {user && (
           <div className="hidden sm:flex items-center gap-2">
             <div className="w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs font-bold flex items-center justify-center">
-              {initials(user.name)}
+              {user ? initials(`${user.firstName} ${user.lastName}`) : ''}
             </div>
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{user.name}</span>
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{user ? `${user.firstName} ${user.lastName}` : ''}</span>
           </div>
         )}
         <button

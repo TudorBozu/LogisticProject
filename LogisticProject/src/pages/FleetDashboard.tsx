@@ -5,6 +5,7 @@ import VehicleInfoCard from "../components/fleet/VehicleInfoCard";
 import BottomWidgets from "../components/fleet/BottomWidgets";
 import FleetMap from "../components/fleet/FleetMap";
 import ActiveRoutes from "../components/fleet/ActiveRoutes";
+import OrderQueuePanel from "../components/fleet/OrderQueuePanel";
 import Navbar from "../components/layout/Navbar/Navbar";
 import { trucks as mockTrucks } from "../mock/trucks";
 import { FleetProvider, useFleet } from "../context/FleetContext";
@@ -30,11 +31,15 @@ function FleetDashboardContent() {
     }
 
     return (
-        <div className="min-h-screen bg-[#eef2f8] p-6">
+        <div className="min-h-screen bg-[#eef2f8] px-6 pb-6 pt-[77px]">
             <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
 
             <div className={`max-w-[1400px] mx-auto mt-6 grid grid-cols-12 gap-6${activeTab === "map" ? " items-stretch" : ""}`}>
-                {activeTab === "map" ? (
+                {activeTab === "orders" ? (
+                    <div className="col-span-12">
+                        <OrderQueuePanel />
+                    </div>
+                ) : activeTab === "map" ? (
                     <>
                         <div className="col-span-3 max-[1200px]:col-span-12">
                             <ActiveRoutes
@@ -74,7 +79,7 @@ function FleetDashboardContent() {
                 )}
             </div>
 
-            {activeTab !== "map" && (
+            {activeTab !== "map" && activeTab !== "orders" && (
                 <div className="max-w-[1400px] mx-auto mt-6">
                     <BottomWidgets />
                 </div>

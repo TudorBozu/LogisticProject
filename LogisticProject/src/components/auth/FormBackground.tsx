@@ -1,7 +1,7 @@
 export default function FormBackground() {
   return (
       <div
-          className="pointer-events-none absolute inset-0 hidden overflow-hidden 2xl:block"
+          className="pointer-events-none absolute inset-0 hidden overflow-hidden block"
           aria-hidden
       >
         {/* Dot grid */}

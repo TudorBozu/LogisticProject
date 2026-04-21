@@ -1,11 +1,14 @@
 import type { ReactNode } from 'react'
+import { useLang } from '../../context/LangContext'
+import { authT } from '../../data/authTranslations'
 
 interface AuthLayoutProps {
   children: ReactNode
   panelTitle: string
   panelSubtitle: string
-  panelStats: { value: string; label: string; icon: ReactNode }[]
-  panelQuote: { text: string; name: string; role: string; initials: string }
+    panelStatsLabel: string
+    panelStats: { value: string; label: string; icon: ReactNode }[]
+    panelQuote: { text: string; name: string; role: string; initials: string }
 }
 
 interface StatCardProps {
@@ -33,8 +36,11 @@ export default function AuthLayout({
                                      panelTitle,
                                      panelSubtitle,
                                      panelStats,
+                                     panelStatsLabel,
                                      panelQuote,
                                    }: AuthLayoutProps) {
+    const { lang } = useLang()
+    const lt = authT[lang].layout
 
   return (
       <div className="flex min-h-screen flex-col lg:flex-row pt-[53px]">
@@ -53,15 +59,15 @@ export default function AuthLayout({
           <div className="relative z-10 flex flex-col justify-between p-7 sm:p-9 lg:h-full lg:p-10">
 
             {/* Logo */}
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/20">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M5 15V5H12C13.6569 5 15 6.34315 15 8C15 9.65685 13.6569 11 12 11H5" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M10 11L15 15" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className="flex items-center gap-2.5">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/20">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M5 15V5H12C13.6569 5 15 6.34315 15 8C15 9.65685 13.6569 11 12 11H5" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M10 11L15 15" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                  </div>
+                  <span className="font-display text-xl font-bold tracking-tight text-white">RoutaX</span>
               </div>
-              <span className="font-display text-xl font-bold tracking-tight text-white">RoutaX</span>
-            </div>
 
             {/* Hero */}
             <div className="mt-8 lg:mt-10">
@@ -76,7 +82,7 @@ export default function AuthLayout({
             {/* Stats */}
             <div className="mt-8 space-y-2.5">
               <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-indigo-300">
-                {panelStats.length === 3 ? 'De ce echipele ne aleg pe noi' : 'Platform overview'}
+                  {panelStatsLabel}
               </p>
               {panelStats.map((s, i) => (
                   // key pe div nativ — evită eroarea Rider "Unresolved component prop key"
@@ -128,9 +134,9 @@ export default function AuthLayout({
             {children}
           </div>
 
-          <p className="relative z-10 mt-8 text-center text-xs text-white/50">
-            © {new Date().getFullYear()} RoutaX Technologies SRL · Toate drepturile rezervate
-          </p>
+            <p className="relative z-10 mt-8 text-center text-xs text-white/50">
+                © {new Date().getFullYear()} RoutaX Technologies SRL · {lt.rights}
+            </p>
         </main>
 
       </div>

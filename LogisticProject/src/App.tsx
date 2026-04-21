@@ -4,6 +4,7 @@ import "./App.css";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { Guard } from "./router/Guard";
 import { PATHS } from "./router/paths";
+import { AuthProvider } from "./context/AuthContext";
 
 import LandingPage     from "./pages/LandingPage";
 import AuthNavbar      from "./components/auth/Navbar";
@@ -31,6 +32,7 @@ function AuthWrapper() {
 
 export default function App() {
     return (
+        <AuthProvider>
         <Routes>
             {/* Public */}
             <Route path={PATHS.public.home} element={<LandingPage />} />
@@ -82,5 +84,6 @@ export default function App() {
             {/* 404 catch-all */}
             <Route path="*" element={<Page404 />} />
         </Routes>
+        </AuthProvider>
     );
 }

@@ -24,6 +24,7 @@ export interface AuthUser {
   lastName: string
   email: string
   avatarUrl?: string
+  role: 'admin' | 'dispatcher' | 'client' | 'driver' | 'depot_worker'
 }
 
 export type SignInFormData = Pick<SignInValues, 'email' | 'password'>

@@ -2,17 +2,18 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 import { useLang } from '../context/LangContext'
-import { logout } from '../utils/auth'
+import { useAuth } from '../context/AuthContext'
 
 export default function DepotNavbar() {
   const { theme, toggleTheme } = useTheme()
   const { lang, toggleLang } = useLang()
   const navigate = useNavigate()
+  const { logout } = useAuth()
   const dark = theme === 'dark'
   const [langAnim, setLangAnim] = useState(false)
   const [themeAnim, setThemeAnim] = useState(false)
 
-  function handleLogout() { logout(navigate) }
+  function handleLogout() { logout(); navigate('/') }
   function handleLangClick() { setLangAnim(true); setTimeout(() => setLangAnim(false), 300); toggleLang() }
   function handleThemeClick() { setThemeAnim(true); setTimeout(() => setThemeAnim(false), 300); toggleTheme() }
 

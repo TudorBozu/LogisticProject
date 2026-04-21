@@ -7,41 +7,61 @@ import { useAuthForm, type FieldError } from '../hooks/useAuthForm'
 import type { SignUpValues } from '../types/auth'
 import { useLang } from '../context/LangContext'
 import { authT } from '../data/authTranslations'
+import { mockRegister } from '../services/authService'
+import { useAuth } from '../context/AuthContext'
+import { PATHS } from '../router/paths'
 
 const initialValues: SignUpValues = { firstName: '', lastName: '', email: '', company: '', password: '', confirmPassword: '', agreeToTerms: false }
 
-function validate(v: SignUpValues): FieldError[] {
+function validate(v: SignUpValues, errors: {
+  readonly firstNameRequired: string
+  readonly lastNameRequired: string
+  readonly emailRequired: string
+  readonly emailInvalid: string
+  readonly passwordRequired: string
+  readonly passwordTooShort: string
+  readonly passwordNoUpper: string
+  readonly passwordNoLower: string
+  readonly passwordNoNumber: string
+  readonly confirmPasswordRequired: string
+  readonly passwordsMismatch: string
+  readonly termsRequired: string
+}): FieldError[] {
   const errs: FieldError[] = []
-  if (!v.firstName.trim()) errs.push({ field: 'firstName', message: 'Prenumele este obligatoriu' })
-  if (!v.lastName.trim())  errs.push({ field: 'lastName',  message: 'Numele este obligatoriu' })
-  if (!v.email) errs.push({ field: 'email', message: 'Adresa de e-mail este obligatorie' })
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) errs.push({ field: 'email', message: 'Adresa de e-mail nu este validă' })
+  if (!v.firstName.trim()) errs.push({ field: 'firstName', message: errors.firstNameRequired })
+  if (!v.lastName.trim())  errs.push({ field: 'lastName',  message: errors.lastNameRequired })
+  if (!v.email) errs.push({ field: 'email', message: errors.emailRequired })
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) errs.push({ field: 'email', message: errors.emailInvalid })
   if (!v.password) {
-    errs.push({ field: 'password', message: 'Parola este obligatorie' })
+    errs.push({ field: 'password', message: errors.passwordRequired })
   } else {
-    if (v.password.length < 8)   errs.push({ field: 'password', message: 'Parola trebuie să aibă cel puțin 8 caractere' })
-    if (!/[A-Z]/.test(v.password)) errs.push({ field: 'password', message: 'Parola trebuie să conțină cel puțin o literă mare' })
-    if (!/[a-z]/.test(v.password)) errs.push({ field: 'password', message: 'Parola trebuie să conțină cel puțin o literă mică' })
-    if (!/[0-9]/.test(v.password)) errs.push({ field: 'password', message: 'Parola trebuie să conțină cel puțin o cifră' })
+    if (v.password.length < 8)    errs.push({ field: 'password', message: errors.passwordTooShort })
+    if (!/[A-Z]/.test(v.password)) errs.push({ field: 'password', message: errors.passwordNoUpper })
+    if (!/[a-z]/.test(v.password)) errs.push({ field: 'password', message: errors.passwordNoLower })
+    if (!/[0-9]/.test(v.password)) errs.push({ field: 'password', message: errors.passwordNoNumber })
   }
-  if (!v.confirmPassword) errs.push({ field: 'confirmPassword', message: 'Confirmarea parolei este obligatorie' })
-  else if (v.password !== v.confirmPassword) errs.push({ field: 'confirmPassword', message: 'Parolele nu coincid' })
-  if (!v.agreeToTerms) errs.push({ field: 'agreeToTerms', message: 'Trebuie să acceptați Termenii și Condițiile' })
+  if (!v.confirmPassword) errs.push({ field: 'confirmPassword', message: errors.confirmPasswordRequired })
+  else if (v.password !== v.confirmPassword) errs.push({ field: 'confirmPassword', message: errors.passwordsMismatch })
+  if (!v.agreeToTerms) errs.push({ field: 'agreeToTerms', message: errors.termsRequired })
   return errs
-}
-
-async function mockSignUp(v: SignUpValues): Promise<void> {
-  await new Promise<void>(r => setTimeout(r, 1400))
-  console.log('[mock] registered:', v.email)
 }
 
 export default function SignUpPage() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const { lang } = useLang()
   const t = authT[lang].signUp
 
-  const onSubmit = useCallback(async (v: SignUpValues) => { await mockSignUp(v); navigate('/dashboard') }, [navigate])
-  const { values, errors, serverError, isLoading, hasFieldError, handleChange, handleSubmit } = useAuthForm({ initialValues, validate, onSubmit })
+  const onSubmit = useCallback(async (v: SignUpValues) => {
+    const user = await mockRegister({ email: v.email, password: v.password, firstName: v.firstName, lastName: v.lastName, company: v.company })
+    login(user)
+    navigate(PATHS.DASHBOARD)
+  }, [navigate, login])
+  const { values, errors, serverError, isLoading, hasFieldError, handleChange, handleSubmit } = useAuthForm({
+    initialValues,
+    validate: (v) => validate(v, t.errors),
+    onSubmit,
+  })
 
   const allErrors = [...errors.map(e => e.message), ...(serverError ? [serverError] : [])]
 
@@ -56,7 +76,7 @@ export default function SignUpPage() {
   }))
 
   return (
-    <AuthLayout panelTitle={t.panelTitle} panelSubtitle={t.panelSubtitle} panelStats={panelStats} panelQuote={t.panelQuote}>
+    <AuthLayout panelTitle={t.panelTitle} panelSubtitle={t.panelSubtitle} panelStatsLabel={t.panelStatsLabel} panelStats={panelStats} panelQuote={t.panelQuote}>
 
       <div className="mb-6">
         <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">{t.title}</h1>
@@ -110,7 +130,7 @@ export default function SignUpPage() {
             <div className="mb-2 flex items-center gap-2">
               <svg className="h-3.5 w-3.5 flex-shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
               <span className="text-xs font-semibold text-red-600 dark:text-red-400">
-                {allErrors.length} eroare{allErrors.length !== 1 ? 'ri' : ''} găsite
+                {t.errors.errorsFound(allErrors.length)}
               </span>
             </div>
             <ul className="space-y-1">
