@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import { useLang } from '../../context/LangContext'
+import { authT } from '../../data/authTranslations'
 
 interface AuthLayoutProps {
   children: ReactNode
@@ -37,6 +39,8 @@ export default function AuthLayout({
                                      panelStatsLabel,
                                      panelQuote,
                                    }: AuthLayoutProps) {
+    const { lang } = useLang()
+    const lt = authT[lang].layout
 
   return (
       <div className="flex min-h-screen flex-col lg:flex-row pt-[53px]">
@@ -130,9 +134,9 @@ export default function AuthLayout({
             {children}
           </div>
 
-          <p className="relative z-10 mt-8 text-center text-xs text-white/50">
-            © {new Date().getFullYear()} RoutaX Technologies SRL · Toate drepturile rezervate
-          </p>
+            <p className="relative z-10 mt-8 text-center text-xs text-white/50">
+                © {new Date().getFullYear()} RoutaX Technologies SRL · {lt.rights}
+            </p>
         </main>
 
       </div>
