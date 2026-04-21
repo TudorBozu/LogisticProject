@@ -7,6 +7,9 @@ import { useAuthForm, type FieldError } from '../hooks/useAuthForm'
 import type { SignUpValues } from '../types/auth'
 import { useLang } from '../context/LangContext'
 import { authT } from '../data/authTranslations'
+import { mockRegister } from '../services/authService'
+import { useAuth } from '../context/AuthContext'
+import { PATHS } from '../router/paths'
 
 const initialValues: SignUpValues = { firstName: '', lastName: '', email: '', company: '', password: '', confirmPassword: '', agreeToTerms: false }
 
@@ -43,17 +46,17 @@ function validate(v: SignUpValues, errors: {
   return errs
 }
 
-async function mockSignUp(v: SignUpValues): Promise<void> {
-  await new Promise<void>(r => setTimeout(r, 1400))
-  console.log('[mock] registered:', v.email)
-}
-
 export default function SignUpPage() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const { lang } = useLang()
   const t = authT[lang].signUp
 
-  const onSubmit = useCallback(async (v: SignUpValues) => { await mockSignUp(v); navigate('/dashboard') }, [navigate])
+  const onSubmit = useCallback(async (v: SignUpValues) => {
+    const user = await mockRegister({ email: v.email, password: v.password, firstName: v.firstName, lastName: v.lastName, company: v.company })
+    login(user)
+    navigate(PATHS.DASHBOARD)
+  }, [navigate, login])
   const { values, errors, serverError, isLoading, hasFieldError, handleChange, handleSubmit } = useAuthForm({
     initialValues,
     validate: (v) => validate(v, t.errors),

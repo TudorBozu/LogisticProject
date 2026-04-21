@@ -7,7 +7,9 @@ import { useAuthForm, type FieldError } from '../hooks/useAuthForm'
 import type { SignInValues } from '../types/auth'
 import { useLang } from '../context/LangContext'
 import { authT } from '../data/authTranslations'
-import { findUser } from '../data/mockUsers'
+import { mockSignIn } from '../services/authService'
+import { useAuth } from '../context/AuthContext'
+import { PATHS } from '../router/paths'
 
 const initialValues: SignInValues = { email: '', password: '', remember: false }
 
@@ -25,16 +27,17 @@ function validate(values: SignInValues, errors: {
   return errs
 }
 
-async function mockSignIn(values: SignInValues): Promise<string> {
-  await new Promise<void>(r => setTimeout(r, 1200))
-  const user = findUser(values.email, values.password)
-  if (!user) throw new Error('Email sau parolă incorectă.')
-  sessionStorage.setItem('routax_user', JSON.stringify({ id: user.id, name: user.name, role: user.role }))
-  return user.role
+const roleRoutes: Record<string, string> = {
+  client: PATHS.ORDERS ?? '/orders',
+  depot_worker: PATHS.DEPOT ?? '/depot',
+  driver: PATHS.DRIVER ?? '/driver',
+  admin: PATHS.app.fleet,
+  dispatcher: PATHS.app.fleet,
 }
 
 export default function SignInPage() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const { lang } = useLang()
   const t = authT[lang].signIn
 
@@ -49,11 +52,10 @@ export default function SignInPage() {
   }))
 
   const onSubmit = useCallback(async (v: SignInValues) => {
-    const role = await mockSignIn(v)
-    if (role === 'client') navigate('/orders')
-    else if (role === 'depot_worker') navigate('/depot')
-    else navigate('/fleet')
-  }, [navigate])
+    const user = await mockSignIn({ email: v.email, password: v.password })
+    login(user)
+    navigate(roleRoutes[user.role] ?? PATHS.app.fleet)
+  }, [navigate, login])
   const { values, errors, serverError, isLoading, hasFieldError, handleChange, handleSubmit } = useAuthForm({
     initialValues,
     validate: (v) => validate(v, t.errors),
